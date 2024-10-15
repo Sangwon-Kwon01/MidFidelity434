@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: white;
+}
+
+h1 {
+    text-align: center;
+    color: #4c2a2b;
+}
+
+.container {
+    width: 400px;    
+    height: 700px;
+    margin: 0 auto;
+    background: pink;
+    padding: 20px;
+    box-shadow: 0 0 10px black;
+    position: relative;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid grey;
+    font-size: 16px;
+}
+
+.add {
+    background: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 15px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li.completed {
+    background-color: grey;
+    text-decoration: line-through;
+    color: white;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #FEFFFB;
+    width: 100%;
+    text-align: center;   
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 10px;
+    color: black;
+    text-decoration: underline;
+    
+}
+a:link {
+    color: black
+}
+
+img {
+    width: 20px;
+    height: 20px;
+}

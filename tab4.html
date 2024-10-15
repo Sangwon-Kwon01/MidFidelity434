@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="tab4.css">
+</head>
+<body>
+    <div class="profile-page">
+        <div class="content">
+            
+            <h1 id="dynamicTitle">Profile</h1>
+            
+            
+            <div id="profileSection" class="hidden">
+                <div class="profile-info" onclick="showNotification('John Miller')">
+                    <img id="johnProfileImage" src="images/Img1.jpeg" alt="John's Profile Image">
+                    <p class="name" id="johnName">John Miller</p>
+                </div>
+                
+                <div class="profile-info" onclick="showNotification('Jessica Smith')">
+                    <img id="jessicaProfileImage" src="images/img2.jpeg" alt="Jessica's Profile Image">
+                    <p class="name" id="jessicaName">Jessica Smith</p>
+                </div>
+            </div>
+
+            <div id="notification" class="notification hidden">
+                <span class="closebtn" onclick="closeNotification()">&times;</span>
+                <strong id="notificationMessage"></strong>
+            </div>
+        </div>
+        
+        <ul class = "nav-bar">
+            <li class="tab"><a href="tab1-2.html">
+                <img src="homeIcon.png"/><br>
+                Home
+            </a></li>
+            <li class="tab"><a href="tab2.html">
+                <img src="inventory.png"/><br>
+                Inventory
+            </a></li>
+            <li class="tab"><a href="tab3.html">
+                <img src="shoppingIcon.png"/><br>
+                Shopping List
+            </a></li>
+            <li class="tab"><a href="tab4.html">Profile</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function showNotification(profileName) {
+            document.getElementById("notificationMessage").innerText = `This is ${profileName}'s profile.`;
+            document.getElementById("notification").classList.remove("hidden");
+        }
+
+        function closeNotification() {
+            document.getElementById("notification").classList.add("hidden");
+        }
+
+        function showTab(tabName) {
+            
+            document.getElementById("dynamicTitle").innerText = tabName;
+
+            
+            if (tabName === 'Profile') {
+                document.getElementById("profileSection").classList.remove("hidden");
+            } else {
+                document.getElementById("profileSection").classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
+

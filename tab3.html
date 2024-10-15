@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tab3.css" type="text/css">
+    <title>ToDo</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>To Do</h1>
+        <div class="header">
+            <input type="text" id="new" placeholder="New Entry...">
+            <button id="add" class="add">Add</button>
+        </div>
+        <ul id="todo-list"></ul>
+
+        <!-- Move tabs inside the container -->
+        <ul class = "tabs">
+            <li class="tab"><a href="tab1-2.html">
+                <img src="homeIcon.png"/><br>
+                Home
+            </a></li>
+            <li class="tab"><a href="tab2.html">
+                <img src="inventory.png"/><br>
+                Inventory
+            </a></li>
+            <li class="tab"><a href="tab3.html">
+                <img src="shoppingIcon.png"/><br>
+                Shopping List
+            </a></li>
+            <li class="tab"><a href="tab4.html">Profile</a></li>
+        </ul>
+        
+    </div>
+
+    <script>
+        document.getElementById('add').addEventListener('click', addItem);
+
+        function addItem() {
+            let itemText = document.getElementById('new').value;
+            if (itemText === '') {
+                return;
+            }
+
+            let li = document.createElement('li');
+            let span = document.createElement('span');
+            span.textContent = itemText;
+
+            li.addEventListener('click', function() {
+                li.classList.toggle('completed');
+                li.classList.toggle('checked')
+            });
+
+            let deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.className = 'delete-btn';
+            deleteButton.onclick = function() {
+                li.remove();
+            };
+
+            li.appendChild(span);
+            li.appendChild(deleteButton);
+
+            document.getElementById('todo-list').appendChild(li);
+            document.getElementById('new').value = '';
+        }
+    </script>
+</body>
+
+</html>
