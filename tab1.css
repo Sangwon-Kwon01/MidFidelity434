@@ -16,6 +16,54 @@ body {
     background-color: #FEFFFB;
 }
 
+.profile {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    display: block;
+    margin: auto;
+}
+
+.profile-text {
+    align-items: center;
+    text-align: center;
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.green {
+    color: #3C4C24;
+    font-weight: bold;
+    padding: 20px;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.scroll-item {
+    display: inline-block;
+    text-align: center; 
+    margin: 0 15px;
+}
+
+.scroll-recipes {
+    width: 70px;
+    height: 70px;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 10px; 
+}
+
+.scroll-item span {
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 .tabs {
     display: flex;
     justify-content: space-around;
