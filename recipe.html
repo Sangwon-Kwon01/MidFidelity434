@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Suggestions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recipe Suggestions</h1>
+        
+        <input type="text" id="searchBar" placeholder="Search by ingredient...">
+
+        <div class="filters">
+            <h3>Allergy Filters</h3>
+            <label><input type="checkbox" class="allergy-filter" value="lactose"> Lactose</label>
+            <label><input type="checkbox" class="allergy-filter" value="peanuts"> Peanuts</label>
+        
+            <h3>Diet Filters</h3>
+            <label><input type="checkbox" class="diet-filter" value="vegan"> Vegan</label>
+            <label><input type="checkbox" class="diet-filter" value="non-vegetarian"> Non-Vegetarian</label>
+        
+            <h3>Skill Level</h3>
+            <label><input type="checkbox" class="skill-filter" value="beginner"> Beginner</label>
+            <label><input type="checkbox" class="skill-filter" value="intermediate"> Intermediate</label>
+            <label><input type="checkbox" class="skill-filter" value="advanced"> Advanced</label>
+        </div>
+
+        <div id="recipeList" class="recipe-list"></div>
+    </div>
+
+    <script>
+        const recipes = [
+            {
+                name: 'Spaghetti Bolognese',
+                ingredients: ['spaghetti', 'tomato', 'beef', 'onion', 'garlic'],
+                allergens: [], 
+                diet: 'non-vegetarian',
+                skill: 'intermediate',
+                instructions: `Step 1: Cook spaghetti.
+                               Step 2: Sauté onion and garlic.
+                               Step 3: Add beef, cook until brown.
+                               Step 4: Add tomatoes and simmer.`,
+            },
+            {
+                name: 'Vegetable Stir Fry',
+                ingredients: ['broccoli', 'carrot', 'soy sauce', 'tofu'],
+                allergens: [], 
+                diet: 'vegan',
+                skill: 'beginner',
+                instructions: `Step 1: Heat oil in a pan.
+                               Step 2: Add vegetables and tofu.
+                               Step 3: Stir-fry for 5-7 minutes.
+                               Step 4: Add soy sauce.`,
+            },
+            {
+                name: 'Chicken Salad',
+                ingredients: ['chicken', 'lettuce', 'tomato', 'cucumber', 'dressing'],
+                allergens: [], 
+                diet: 'non-vegetarian',
+                skill: 'beginner',
+                instructions: `Step 1: Grill chicken.
+                               Step 2: Cut chicken into pieces.
+                               Step 3: Toss with lettuce, tomato, and cucumber.
+                               Step 4: Add dressing.`,
+            },
+            {
+                name: 'Peanut Butter Toast',
+                ingredients: ['bread', 'peanut butter', 'banana'],
+                allergens: ['peanuts'],
+                diet: 'vegan',
+                skill: 'beginner',
+                instructions: `Step 1: Toast bread.
+                               Step 2: Spread peanut butter.
+                               Step 3: Add sliced bananas on top.`,
+            },
+            {
+                name: 'Cheese Omelette',
+                ingredients: ['eggs', 'cheese', 'milk', 'salt'],
+                allergens: ['lactose'], 
+                diet: 'non-vegetarian',
+                skill: 'intermediate',
+                instructions: `Step 1: Whisk eggs and milk.
+                               Step 2: Pour into pan and cook.
+                               Step 3: Add cheese and fold.`,
+            },
+            {
+                name: 'Yogurt Parfait',
+                ingredients: ['yogurt', 'berries', 'granola', 'honey'],
+                allergens: ['lactose'], 
+                diet: 'vegan',
+                skill: 'beginner',
+                instructions: `Step 1: Layer yogurt in a glass.
+                               Step 2: Add granola and berries.
+                               Step 3: Drizzle honey on top.`,
+            },
+            {
+                name: 'Beef Wellington',
+                ingredients: ['beef', 'puff pastry', 'mushrooms', 'egg yolk'],
+                allergens: [], 
+                diet: 'non-vegetarian',
+                skill: 'advanced',
+                instructions: `Step 1: Sear the beef fillet.
+                               Step 2: Prepare mushroom duxelles.
+                               Step 3: Wrap beef in pastry and chill.
+                               Step 4: Bake at 200°C until golden.`,
+            }
+        ];
+
+        function displayRecipes(filter = '') {
+            const recipeList = document.getElementById('recipeList');
+            recipeList.innerHTML = ''; 
+
+            
+            const selectedAllergens = Array.from(document.querySelectorAll('.allergy-filter:checked')).map(el => el.value);
+            const selectedDiets = Array.from(document.querySelectorAll('.diet-filter:checked')).map(el => el.value);
+            const selectedSkills = Array.from(document.querySelectorAll('.skill-filter:checked')).map(el => el.value);
+
+            const filteredRecipes = recipes.filter(recipe => {
+                
+                const matchesSearch = recipe.ingredients.some(ingredient =>
+                    ingredient.toLowerCase().includes(filter.toLowerCase())
+                );
+
+                
+                const allergenSafe = selectedAllergens.every(allergy =>
+                    !recipe.allergens.includes(allergy)
+                );
+
+                
+                const dietMatch = selectedDiets.length === 0 || selectedDiets.includes(recipe.diet);
+
+                
+                const skillMatch = selectedSkills.length === 0 || selectedSkills.includes(recipe.skill);
+
+                return matchesSearch && allergenSafe && dietMatch && skillMatch;
+            });
+
+            filteredRecipes.forEach(recipe => {
+                const card = document.createElement('div');
+                card.className = 'recipe-card';
+
+                card.innerHTML = `
+                    <div>
+                        <h3>${recipe.name}</h3>
+                        <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
+                        <p>Skill Level: ${recipe.skill}</p>
+                    </div>
+                    <button onclick="toggleInstructions(this)">View</button>
+                    <div class="instructions">
+                        <p>${recipe.instructions.replace(/\n/g, '<br>')}</p>
+                    </div>
+                `;
+
+                recipeList.appendChild(card);
+            });
+        }
+
+        
+        function toggleInstructions(button) {
+            const instructionsDiv = button.nextElementSibling;
+            instructionsDiv.classList.toggle('open');
+        }
+
+        
+        displayRecipes();
+
+        
+        document.getElementById('searchBar').addEventListener('input', (event) => {
+            displayRecipes(event.target.value);
+        });
+
+        
+        document.querySelectorAll('.allergy-filter, .diet-filter, .skill-filter').forEach(filter => {
+            filter.addEventListener('change', () => {
+                displayRecipes(document.getElementById('searchBar').value);
+            });
+        });
+    </script>
+</body>
+</html>
