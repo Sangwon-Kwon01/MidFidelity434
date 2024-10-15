@@ -16,30 +16,6 @@ body {
     background-color: #FEFFFB;
 }
 
-.tabs {
-    display: flex;
-    justify-content: space-around;
-    margin: 0;
-    padding: 0;
-    background-color: #FEFFFB;
-    width: 100%;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.tab {
-    cursor: pointer;
-    padding: 10px;
-    color: black;
-    text-decoration: underline;
-}
-
-a:link {
-    color: black;
-}
-
 .container {
     width: 400px;
     height: 700px;
@@ -52,33 +28,20 @@ a:link {
     flex-direction: column;
 }
 
-.tab-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-bottom: 60px;
-}
-
-h1 {
+header h1 {
     text-align: center;
+    margin-top: 10px;
 }
 
-#h1-half {
-    color: #3C4C24;
-    display: inline;
+.meat-category {
+    margin: 20px 0;
 }
 
-img {
-    width: 20px;
-    height: 20px;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-.inventory-category h2 {
+.meat-category h2 {
     text-align: left;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #3C4C24;
 }
 
 .subsection {
@@ -86,12 +49,32 @@ ul {
     justify-content: space-around;
 }
 
-.sub-item {
+.meat-item {
     text-align: center;
 }
 
-.sub-item img {
+.meat-item img {
     width: 40px;
     height: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.return-button {
+    text-decoration: none;
+    color: white;
+    background-color: #3C4C24;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.return-button:hover {
+    background-color: #5A6D36;
 }
