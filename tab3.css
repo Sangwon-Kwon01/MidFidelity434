@@ -67,7 +67,6 @@ li.completed {
 .tabs {
     display: flex;
     justify-content: space-around;
-    list-style-type: none;
     margin: 0;
     padding: 0;
     background-color: #FEFFFB;
