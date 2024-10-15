@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0; 
+    background-color: white; 
     display: flex;
     justify-content: center; 
     align-items: flex-start; 
@@ -11,7 +11,7 @@ body {
 
 
 .profile-page {
-    background-color: #f7d5d5; 
+    background-color: white; 
     max-width: 800px; 
     width: 100%;
     padding: 20px;
@@ -84,7 +84,7 @@ h1 {
 .nav-bar {
     display: flex;
     justify-content: space-around;
-    background-color: #0026ff;
+    background-color: white;
     padding: 15px;
     border-radius: 10px;
     position: relative;
