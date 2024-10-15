@@ -5,39 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="tab3.css" type="text/css">
-    <title>ToDo</title>
+    <title>Shopping List</title>
 </head>
 
 <body>
     <div class="container">
-        <h1>To Do</h1>
+        <h1>Shopping List</h1>
+        
         <div class="header">
-            <input type="text" id="new" placeholder="New Entry...">
-            <button id="add" class="add">Add</button>
+            <select id="category-filter">
+                <option value="all">All Categories</option>
+                <option value="dairy">Dairy</option>
+                <option value="frozen">Frozen</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="fruits">Fruits</option>
+                <option value="meats">Meats</option>
+                <option value="snacks">Snacks</option>
+            </select>
+            
+            <input type="text" id="new" placeholder="New Grocery Item...">
+            <button id="add" class="add">ADD +</button>
         </div>
-        <ul id="todo-list"></ul>
+
+        <ul id="shopping-list"></ul>
+
+        <!-- Grocery category icons section -->
+        <ul class="grocery-icons">
+            <li class="grocery-category" data-category="dairy">
+                <img src="dairyIcon.png" alt="Dairy"><br>Dairy
+            </li>
+            <li class="grocery-category" data-category="frozen">
+                <img src="frozenIcon.png" alt="Frozen"><br>Frozen
+            </li>
+            <li class="grocery-category" data-category="vegetables">
+                <img src="vegetablesIcon.png" alt="Vegetables"><br>Vegetables
+            </li>
+            <li class="grocery-category" data-category="fruits">
+                <img src="fruitsIcon.png" alt="Fruits"><br>Fruits
+            </li>
+            <li class="grocery-category" data-category="meats">
+                <img src="meatsIcon.png" alt="Meats"><br>Meats
+            </li>
+            <li class="grocery-category" data-category="snacks">
+                <img src="snacksIcon.png" alt="Snacks"><br>Snacks
+            </li>
+        </ul>
 
         <!-- Move tabs inside the container -->
-        <ul class = "tabs">
+        <ul class="tabs">
             <li class="tab"><a href="tab1.html">
-                <img src="homeIcon.png"/><br>
-                Home
+                <img src="homeIcon.png"/><br>Home
             </a></li>
             <li class="tab"><a href="tab2.html">
-                <img src="inventory.png"/><br>
-                Inventory
+                <img src="inventory.png"/><br>Inventory
             </a></li>
-            <li class="tab"><a href="tab3.html">
-                <img src="shoppingIcon.png"/><br>
-                Shopping List
+            <li class="tab active"><a href="tab3.html">
+                <img src="shoppingIcon.png"/><br>Shopping List
             </a></li>
             <li class="tab"><a href="tab4.html">Profile</a></li>
         </ul>
-        
     </div>
 
     <script>
         document.getElementById('add').addEventListener('click', addItem);
+        document.getElementById('category-filter').addEventListener('change', filterItems);
 
         function addItem() {
             let itemText = document.getElementById('new').value;
@@ -45,13 +76,16 @@
                 return;
             }
 
+            let category = document.getElementById('category-filter').value;
             let li = document.createElement('li');
             let span = document.createElement('span');
             span.textContent = itemText;
 
+            li.setAttribute('data-category', category);
+
             li.addEventListener('click', function() {
                 li.classList.toggle('completed');
-                li.classList.toggle('checked')
+                li.classList.toggle('checked');
             });
 
             let deleteButton = document.createElement('button');
@@ -64,8 +98,21 @@
             li.appendChild(span);
             li.appendChild(deleteButton);
 
-            document.getElementById('todo-list').appendChild(li);
+            document.getElementById('shopping-list').appendChild(li);
             document.getElementById('new').value = '';
+        }
+
+        function filterItems() {
+            let category = document.getElementById('category-filter').value;
+            let items = document.querySelectorAll('#shopping-list li');
+
+            items.forEach(function(item) {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>

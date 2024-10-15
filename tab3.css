@@ -92,3 +92,19 @@ img {
     width: 20px;
     height: 20px;
 }
+.grocery-icons li img {
+    width: 100px; /* Adjust width */
+    height: 100px; /* Adjust height */
+}
+
+.grocery-icons li {
+    width: 120px; /* Make sure li accommodates larger images */
+    text-align: center; /* Center text below the image */
+    margin: 10px; /* Space between items */
+}
+
+.grocery-icons {
+    display: flex;
+    flex-wrap: wrap; /* Wrap the icons to the next line if necessary */
+    justify-content: space-around; /* Space icons evenly */
+}
