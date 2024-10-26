@@ -75,16 +75,18 @@ div.scrollmenu {
     position: absolute;
     bottom: 0;
     left: 0;
+    border-top: black .5px solid;
 }
 .tab {
     cursor: pointer;
     padding: 10px;
     color: black;
-    text-decoration: underline;
     
 }
-a:link {
-    color: black;
+
+a:link, a:visited {
+    color: black; 
+    text-decoration: none;
 }
 
 .container {

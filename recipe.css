@@ -19,18 +19,18 @@ body {
 
 /* Container: Rectangular Box Styling */
 .container {
-    width: 95%;         /* Increased width for more space */
-    max-width: 500px;   /* Allows it to remain consistent across screen sizes */
-    height: 85%;        /* Slightly taller for better fit */
+    width: 95%;         
+    max-width: 500px;  
+    height: 85%;        
     background: #FEFFFB;
-    padding: 30px;      /* More padding for a spacious look */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);  /* Slight shadow for depth */
-    border-radius: 15px; /* Rounded corners for aesthetics */
+    padding: 30px; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);  
+    border-radius: 15px; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Pushes nav bar to the bottom */
+    justify-content: space-between; 
     position: relative;
-    overflow: hidden;   /* Prevents icons from spilling out */
+    overflow: hidden; 
 }
 
 /* Header */
@@ -71,8 +71,8 @@ label {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto;  /* Scrollable recipe section */
-    flex-grow: 1;  /* Makes it expand in available space */
+    overflow-y: auto; 
+    flex-grow: 1;
 }
 
 .recipe-card {
@@ -119,12 +119,12 @@ button:hover {
     justify-content: space-around;
     align-items: center;
     background-color: #FEFFFB;
-    height: 40px;  /* Reduced height */
+    height: 40px;  
     list-style: none;
     margin: 0;
-    padding: 0;  /* Slight padding adjustment */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  /* Separation shadow */
-    border-top: 1px solid #ddd;
+    padding: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  
+    border-top: black .5px solid;
 }
 
 /* Tab Item Styling */
@@ -142,12 +142,12 @@ button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;  /* Keeps everything centered */
+    height: 100%; 
 }
 
 /* Adjust Icon Size for Compact Look */
 .tab img {
-    width: 25px;  /* Smaller icon */
+    width: 25px;  
     height: 25px;
     margin-bottom: -25px;
     transition: transform 0.3s;
