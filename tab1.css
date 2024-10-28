@@ -36,10 +36,11 @@ body {
     font-weight: bold;
     padding: 20px;
     padding-bottom: 10px;
-    font-size: 16px;
+    padding-right: 7px;
+    font-size: 20px;
 }
 
-div.scrollmenu {
+div.scrollmenu, div.scrollmenu-sug, div.scrollmenu-fav, div.scrollmenu-gro{
     overflow: auto;
     white-space: nowrap;
 }
@@ -123,4 +124,70 @@ img {
 ul {
     list-style: none;
     padding: 0;
+}
+
+.add-item {
+    width: 15px;
+    height: 15px;
+    padding-left: 2px;
+    margin-left: 0px;
+    padding-top: 3.5px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;    
+    left: 0;    
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;  
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px;    
+    height: 56.2vh;
+    justify-content: center; 
+    align-items: center;
+
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-name, h2{
+    color: #3C4C24;
+}
+
+.meal-pics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+select {
+    width: 400px;
+}
+
+button {
+    background-color: #3C4C24;
+    color: white;
+    border: 2px solid black;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin-left: 130px;
+    margin-top: 10px;
 }
