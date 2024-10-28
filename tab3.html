@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="tab3.css" type="text/css">
     <title>Shopping List</title>
+    <link rel="stylesheet" href="tab3.css"> <!-- Link to external CSS file -->
 </head>
 
 <body>
     <div class="container">
         <h1>Shopping List</h1>
-        
+
         <div class="header">
             <select id="category-filter">
                 <option value="all">All Categories</option>
@@ -22,84 +22,103 @@
                 <option value="meats">Meats</option>
                 <option value="snacks">Snacks</option>
             </select>
-            
+
             <input type="text" id="new" placeholder="New Grocery Item...">
             <button id="add" class="add">ADD +</button>
         </div>
 
         <ul id="shopping-list"></ul>
 
-        <!-- Grocery category icons section -->
-        <ul class="grocery-icons">
-            <li class="grocery-category" data-category="dairy">
-                <img src="dairyIcon.png" alt="Dairy"><br>Dairy
-            </li>
-            <li class="grocery-category" data-category="frozen">
-                <img src="frozenIcon.png" alt="Frozen"><br>Frozen
-            </li>
-            <li class="grocery-category" data-category="vegetables">
-                <img src="vegetablesIcon.png" alt="Vegetables"><br>Vegetables
-            </li>
-            <li class="grocery-category" data-category="fruits">
-                <img src="fruitsIcon.png" alt="Fruits"><br>Fruits
-            </li>
-            <li class="grocery-category" data-category="meats">
-                <img src="meatsIcon.png" alt="Meats"><br>Meats
-            </li>
-            <li class="grocery-category" data-category="snacks">
-                <img src="snacksIcon.png" alt="Snacks"><br>Snacks
-            </li>
-        </ul>
-
-        <!-- Move tabs inside the container -->
+        <!-- Navigation tabs -->
         <ul class="tabs">
-            <li class="tab"><a href="tab1.html">
-                <img src="homeIcon.png"/><br>Home
-            </a></li>
-            <li class="tab"><a href="tab2.html">
-                <img src="inventory.png"/><br>Inventory
-            </a></li>
-            <li class="tab active"><a href="tab3.html">
-                <img src="shoppingIcon.png"/><br>Shopping List
-            </a></li>
+            <li class="tab"><a href="tab1.html">Home</a></li>
+            <li class="tab"><a href="tab2.html">Inventory</a></li>
+            <li class="tab active"><a href="tab3.html">Shopping List</a></li>
             <li class="tab"><a href="tab4.html">Profile</a></li>
         </ul>
     </div>
 
     <script>
+        const categoryIcons = {
+            dairy: 'dairyIcon.png',
+            frozen: 'frozenIcon.png',
+            vegetables: 'vegetablesIcon.png',
+            fruits: 'fruitsIcon.png',
+            meats: 'meatsIcon.png',
+            snacks: 'snacksIcon.png'
+        };
+
         document.getElementById('add').addEventListener('click', addItem);
         document.getElementById('category-filter').addEventListener('change', filterItems);
 
         function addItem() {
-            let itemText = document.getElementById('new').value;
+            let itemText = document.getElementById('new').value.trim();
             if (itemText === '') {
                 return;
             }
 
-            let category = document.getElementById('category-filter').value;
+            itemText = itemText.charAt(0).toUpperCase() + itemText.slice(1);
+
             let li = document.createElement('li');
+            li.className = 'list-item';
+            li.addEventListener('click', toggleCompleted);
+
+            let icon = document.createElement('img');
+            icon.className = 'category-icon';
+
             let span = document.createElement('span');
             span.textContent = itemText;
 
-            li.setAttribute('data-category', category);
+            let categoryDropdown = document.createElement('select');
+            categoryDropdown.className = 'category';
+            categoryDropdown.innerHTML = `
+                <option value="uncategorized">Uncategorized</option>
+                <option value="dairy">Dairy</option>
+                <option value="frozen">Frozen</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="fruits">Fruits</option>
+                <option value="meats">Meats</option>
+                <option value="snacks">Snacks</option>
+            `;
 
-            li.addEventListener('click', function() {
-                li.classList.toggle('completed');
-                li.classList.toggle('checked');
+            categoryDropdown.addEventListener('change', function() {
+                let selectedCategory = categoryDropdown.value;
+                if (selectedCategory !== 'uncategorized') {
+                    icon.src = categoryIcons[selectedCategory];
+                    icon.style.display = 'inline';
+                } else {
+                    icon.src = '';
+                    icon.style.display = 'none';
+                }
+                filterItems();
             });
+
+            let quantityInput = document.createElement('input');
+            quantityInput.type = 'number';
+            quantityInput.value = 1;
+            quantityInput.className = 'quantity';
+            quantityInput.min = 1;
 
             let deleteButton = document.createElement('button');
             deleteButton.textContent = 'X';
             deleteButton.className = 'delete-btn';
-            deleteButton.onclick = function() {
+            deleteButton.onclick = function(e) {
+                e.stopPropagation();
                 li.remove();
             };
 
+            li.appendChild(icon);
             li.appendChild(span);
+            li.appendChild(categoryDropdown);
+            li.appendChild(quantityInput);
             li.appendChild(deleteButton);
 
             document.getElementById('shopping-list').appendChild(li);
             document.getElementById('new').value = '';
+        }
+
+        function toggleCompleted(event) {
+            event.target.classList.toggle('completed');
         }
 
         function filterItems() {
@@ -107,8 +126,9 @@
             let items = document.querySelectorAll('#shopping-list li');
 
             items.forEach(function(item) {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
+                let itemCategory = item.querySelector('.category').value;
+                if (category === 'all' || itemCategory === category) {
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
