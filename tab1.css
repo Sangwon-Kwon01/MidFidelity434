@@ -8,8 +8,60 @@
 
 body {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #FEFFFB;
+}
+
+.profile {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    display: block;
+    margin: auto;
+}
+
+.profile-text {
+    align-items: center;
+    text-align: center;
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.green {
+    color: #3C4C24;
+    font-weight: bold;
+    padding: 20px;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.scroll-item {
+    display: inline-block;
+    text-align: center; 
+    margin: 0 15px;
+}
+
+.scroll-recipes {
+    width: 70px;
+    height: 70px;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 10px; 
+}
+
+.scroll-item span {
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 .tabs {
@@ -23,16 +75,18 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
+    border-top: black .5px solid;
 }
 .tab {
     cursor: pointer;
     padding: 10px;
     color: black;
-    text-decoration: underline;
     
 }
-a:link {
-    color: black;
+
+a:link, a:visited {
+    color: black; 
+    text-decoration: none;
 }
 
 .container {
