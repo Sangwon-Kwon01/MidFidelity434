@@ -1,13 +1,13 @@
+/* General Styling */
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     background-color: #FEFFFB;
 }
-
 .container {
     width: 400px;
     height: 700px;
@@ -20,72 +20,111 @@ body {
     flex-direction: column;
 }
 
-h1 {
+/* Header Styling */
+h1, h2, h3 {
     text-align: center;
-    color: #3C4C24;
-    margin-bottom: 20px;
-}
-
-#searchBar {
-    width: 100%;
-    padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
 }
 
+h1 {
+    color: #3C4C24;
+}
+
+/* Search Bar */
+#searchBar {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: 1px solid #3C4C24;
+    border-radius: 5px;
+}
+
+/* Filters Section */
 .filters {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: space-around;
     margin-bottom: 10px;
 }
 
-label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.dropdown {
+    position: relative;
 }
 
-.recipe-list {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #f9f9f9;
-}
-
-.recipe-card {
-    background-color: #f4f4f4;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #3C4C24;
-}
-
-.recipe-card h3 {
-    margin: 0;
-}
-
-button {
+.dropdown-toggle {
     padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #3C4C24;
-    color: white;
+    background-color: #FEFFFB;
+    color: #3C4C24;
+    border: 1px solid #3C4C24;
     cursor: pointer;
 }
 
+.dropdown-toggle.active {
+    background-color: #3C4C24;
+    color: #FEFFFB;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #F1F1F1;
+    border: 1px solid #3C4C24;
+    border-radius: 5px;
+    width: 150px;
+    top: 35px;
+    z-index: 1;
+}
+
+.dropdown-content label {
+    display: block;
+    padding: 5px;
+}
+
+.show {
+    display: block;
+}
+
+/* Recipe Cards */
+.recipe-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    max-height: 300px; /* Ensure this is appropriately set */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.recipe-card {
+    border: 1px solid #3C4C24;
+    border-radius: 5px;
+    background-color: #F1F1F1;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.recipe-card h3 {
+    margin: 5px 0;
+    color: #3C4C24;
+}
+
+.recipe-card p {
+    margin: 3px 0;
+}
+
+/* Button Styling */
+button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #3C4C24;
+    color: #FEFFFB;
+}
+
 button:hover {
-    background-color: #2a3618;
+    background-color: #2A3518;
 }
 
 .instructions {
@@ -93,43 +132,61 @@ button:hover {
     margin-top: 10px;
 }
 
-.instructions.open {
-    display: block;
-}
-
+/* Tabs */
 .tabs {
     display: flex;
     justify-content: space-around;
-    margin: 0;
-    padding: 0;
-    background-color: #FEFFFB;
     width: 100%;
-    text-align: center;
+    background-color: #FEFFFB;
+    border-top: 0.5px solid black;
     position: absolute;
     bottom: 0;
     left: 0;
-    border-top: black .5px solid;
-    list-style-type: none;
+    padding: 4px 0; /* Reduced padding */
+    box-sizing: border-box;
 }
-
 .tab {
+    flex: 1;
+    text-align: center;
+    padding: 4px; /* Reduced padding */
     cursor: pointer;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-img {
-    width: 20px;
-    height: 20px;
+    list-style: none; /* Remove dots from the tabs */
 }
 
 a:link, a:visited {
     color: black; 
     text-decoration: none;
 }
+
+img {
+    width: 25px;
+    height: 25px;
+}
+
+.tab a {
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.tab img {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 5px;
+}
+
+/* Utility Classes */
+.open {
+    display: block;
+}
+
+.tab-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 50px; /* Ensure it doesn't overlap with tabs */
+    max-height: calc(700px - 80px); /* Adjust to fit container height with reduced tab space */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
