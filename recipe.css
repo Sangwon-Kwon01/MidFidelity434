@@ -1,12 +1,3 @@
-[data-tab-content] {
-    display: none;
-}
-
-.active[data-tab-content] {
-    display: block;
-}
-
-/* General Layout */
 body {
     margin: 0;
     padding: 0;
@@ -17,47 +8,39 @@ body {
     background-color: #FEFFFB;
 }
 
-/* Container: Rectangular Box Styling */
 .container {
-    width: 95%;         
-    max-width: 500px;  
-    height: 85%;        
+    width: 400px;
+    height: 700px;
+    margin: 0 auto;
     background: #FEFFFB;
-    padding: 30px; 
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);  
-    border-radius: 15px; 
+    padding: 20px;
+    box-shadow: 0 0 10px black;
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; 
-    position: relative;
-    overflow: hidden; 
 }
 
-/* Header */
 h1 {
     text-align: center;
+    color: #3C4C24;
     margin-bottom: 20px;
 }
 
-/* Input Field Styling */
-input[type="text"] {
+#searchBar {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
-/* Filters Styling */
 .filters {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
-}
-
-.filters h3 {
-    margin: 10px 0 5px;
+    margin-bottom: 10px;
 }
 
 label {
@@ -66,30 +49,32 @@ label {
     gap: 5px;
 }
 
-/* Recipe List Styling */
 .recipe-list {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto; 
-    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
 }
 
 .recipe-card {
     background-color: #f4f4f4;
-    padding: 15px;
+    padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid #3C4C24;
 }
 
 .recipe-card h3 {
     margin: 0;
 }
 
-/* Button Styling */
 button {
     padding: 5px 10px;
     border: none;
@@ -103,7 +88,6 @@ button:hover {
     background-color: #2a3618;
 }
 
-/* Instructions Section */
 .instructions {
     display: none;
     margin-top: 10px;
@@ -113,57 +97,39 @@ button:hover {
     display: block;
 }
 
-/* Tabs (Nav Bar) */
 .tabs {
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    background-color: #FEFFFB;
-    height: 40px;  
-    list-style: none;
     margin: 0;
     padding: 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);  
-    border-top: black .5px solid;
-}
-
-/* Tab Item Styling */
-.tab {
-    flex-grow: 1;
+    background-color: #FEFFFB;
+    width: 100%;
     text-align: center;
-    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: black .5px solid;
+    list-style-type: none;
 }
 
-/* Tab Links Styling */
-.tab a {
-    text-decoration: none;
+.tab {
+    cursor: pointer;
+    padding: 10px;
     color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%; 
+    text-decoration: none;
 }
 
-/* Adjust Icon Size for Compact Look */
-.tab img {
-    width: 25px;  
-    height: 25px;
-    margin-bottom: -25px;
-    transition: transform 0.3s;
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+img {
+    width: 20px;
+    height: 20px;
 }
 
-/* Slight Zoom on Hover */
-.tab:hover img {
-    transform: scale(1.1);
-}
-
-/* Hover and Active State Styling */
-.tab a:hover {
-    background-color: #e0e0e0;
-}
-
-.tab.active a {
-    border-top: 3px solid #3C4C24;
-    background-color: #f0f0f0;
+a:link, a:visited {
+    color: black; 
+    text-decoration: none;
 }
