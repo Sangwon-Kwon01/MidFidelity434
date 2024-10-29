@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,7 @@
         <h1>Kitchen Kompanion</h1>
         <h2>Recipe Suggestion</h2>
         <input type="text" id="searchBar" placeholder="Search by ingredient or recipe name...">
-        <h3>Click On Filter To Select Diertary Restrictions (If Any)</h3>
+        <h3>Click On Filter To Select Dietary Restrictions (If Any)</h3>
         <div class="filters">
             <div class="dropdown">
                 <button class="filter-button" onclick="toggleDropdown('allergyFilterDropdown')">Allergy Filter</button>
@@ -43,7 +44,7 @@
         <ul class="tabs">
             <li class="tab"><a href="inventory.html"><img src="inventory.png" /><br>Inventory</a></li>
             <li class="tab"><a href="shoppingList.html"><img src="shoppingIcon.png" /><br>Shopping List</a></li>
-            <li class="tab"><a href="recipe.html"><img src="chef.png" /><br>Recipies</a></li>
+            <li class="tab"><a href="recipe.html"><img src="chef.png" /><br>Recipes</a></li>
             <li class="tab"><a href="profile.html"><img src="user.png" /><br>Profile</a></li>
         </ul>
     </div>
@@ -137,14 +138,9 @@
             const selectedSkills = Array.from(document.querySelectorAll('.skill-filter:checked')).map(el => el.value);
 
             const filteredRecipes = recipes.filter(recipe => {
-                // Check if search term matches recipe name or ingredient
                 const matchesSearch = recipe.name.toLowerCase().includes(filter.toLowerCase()) || 
                                       recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(filter.toLowerCase()));
-
-                // Check if all recipe ingredients are available in the inventory
                 const ingredientsAvailable = recipe.ingredients.every(ingredient => inventory.includes(ingredient.toLowerCase()));
-
-                // Apply existing filters for allergens, diet, and skill
                 const allergenSafe = selectedAllergens.every(allergy => !recipe.allergens.includes(allergy));
                 const dietMatch = selectedDiets.length === 0 || selectedDiets.includes(recipe.diet);
                 const skillMatch = selectedSkills.length === 0 || selectedSkills.includes(recipe.skill);
@@ -156,9 +152,6 @@
                 const card = document.createElement('div');
                 card.className = 'recipe-card';
 
-                // Determine missing ingredients
-                const missingIngredients = recipe.ingredients.filter(ingredient => !inventory.includes(ingredient.toLowerCase()));
-
                 card.innerHTML = `
                     <div>
                         <h3>${recipe.name}</h3>
@@ -167,7 +160,7 @@
                         <p>Skill Level: ${recipe.skill}</p>
                     </div>
                     <button onclick="toggleInstructions(this)">View</button>
-                    <div class="instructions">
+                    <div class="instructions" style="display: none;">
                         <p>${recipe.instructions.replace(/\n/g, '<br>')}</p>
                     </div>
                 `;
@@ -181,17 +174,13 @@
             instructionsDiv.style.display = instructionsDiv.style.display === 'none' ? 'block' : 'none';
         }
 
-        function toggleInstructions(button) {
-            const instructionsDiv = button.nextElementSibling;
-            instructionsDiv.classList.toggle('open');
-        }
-
         function toggleDropdown(id) {
-            document.getElementById(id).classList.toggle('show');
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('show');
         }
 
         window.onclick = function(event) {
-            if (!event.target.matches('.dropdown-toggle')) {
+            if (!event.target.matches('.filter-button')) {
                 document.querySelectorAll('.dropdown-content').forEach(dropdown => {
                     dropdown.classList.remove('show');
                 });
