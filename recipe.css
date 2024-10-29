@@ -12,7 +12,7 @@ body {
     width: 400px;
     height: 700px;
     margin: 0 auto;
-    background: #FEFFFB;
+    background:	#ede9da;
     padding: 20px;
     box-shadow: 0 0 10px black;
     position: relative;
@@ -85,12 +85,11 @@ h1 {
     display: block;
 }
 
-/* Recipe Cards */
 .recipe-list {
     flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 10px;
-    max-height: 300px; /* Ensure this is appropriately set */
+    max-height: 300px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -113,7 +112,6 @@ h1 {
     margin: 3px 0;
 }
 
-/* Button Styling */
 button {
     padding: 5px 10px;
     border: none;
@@ -132,19 +130,20 @@ button:hover {
     margin-top: 10px;
 }
 
-/* Tabs */
 .tabs {
     display: flex;
     justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    background-color: #e0dac9;
     width: 100%;
-    background-color: #FEFFFB;
-    border-top: 0.5px solid black;
+    text-align: center;
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 4px 0; /* Reduced padding */
-    box-sizing: border-box;
+    border-top: black .5px solid;
 }
+
 .tab {
     flex: 1;
     text-align: center;
