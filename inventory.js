@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         newItem.setAttribute('data-category', category);
 
         const iconSrc = categoryIcons[category];
-        const allergenText = allergen ? `<p class="allergens">Allergen: ${allergen}</p>` : '';
+        const allergenText = allergen ? `<p class="allergens">Contains: ${allergen}</p>` : '';
 
         newItem.innerHTML = `
             <img src="${iconSrc}" alt="${category} icon" />
