@@ -145,25 +145,24 @@ button:hover {
 .tabs {
     display: flex;
     justify-content: space-around;
-    margin: 0;
-    padding: 0;
     background-color: #e0dac9;
     width: 100%;
     text-align: center;
     position: absolute;
     bottom: 0;
     left: 0;
-    border-top: black .5px solid;
+    border-top: 0.5px solid black;
+    margin: 0;
+    padding: 0;
     list-style: none;
 }
+
 .tab {
     cursor: pointer;
     padding: 10px;
     color: black;
     background-color: rgba(255, 0, 0, 0);
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    border: 0px solid #dddddd00;
-    margin-bottom: 0px;
+    text-decoration: none;
 }
 
 a:link, a:visited {
@@ -171,20 +170,21 @@ a:link, a:visited {
     text-decoration: none;
 }
 
-
-img {
+.tab img {
     width: 20px;
     height: 20px;
 }
 
 .tab a {
-    
     text-decoration: none;
-    font-size: 14px;
+    color: black;
 }
-.active-tab {
-    background-color: #3C4C24;  
-    color: #FEFFFB;             
+
+.tab#active {
+    background-color: #3C4C24;
+    color: #FEFFFB;
+    font-weight: bold;
+    border-radius: 5px;
 }
 
 .open {
