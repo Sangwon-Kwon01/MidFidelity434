@@ -8,10 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Kitchen Kompanion</h1>
-        <h2>Recipe Suggestion</h2>
+        <h2>Kitchen Kompanion</h2>
+        <h4>Recipe Suggestion</h4>
         <input type="text" id="searchBar" placeholder="Search by ingredient or recipe name...">
-        <h3>Click On Filter To Select Dietary Restrictions (If Any)</h3>
+        <h4>Click On Filter To Select Dietary Restrictions (If Any)</h4>
+        <div class="active-filters">
+            <h5>Active Filters:</h5>
+            <div id="activeFilters"></div>
+        </div>
         <div class="filters">
             <div class="dropdown">
                 <button class="filter-button" onclick="toggleDropdown('allergyFilterDropdown')">Allergy Filter</button>
@@ -44,14 +48,64 @@
         <ul class="tabs">
             <li class="tab"><a href="inventory.html"><img src="inventory.png" /><br>Inventory</a></li>
             <li class="tab"><a href="shoppingList.html"><img src="shoppingIcon.png" /><br>Shopping List</a></li>
-            <li class="tab"><a href="recipe.html"><img src="chef.png"/><br>Recipes</a></li>
-            <li class="tab"><a href="profile.html"><img src="user.png"/><br>Profile</a></li>
+            <li class="tab"><a href="recipe.html"><img src="chef.png" /><br>Recipes</a></li>
+            <li class="tab"><a href="profile.html"><img src="user.png" /><br>Profile</a></li>
         </ul>
     </div>
-
+    <div class="virtual-keyboard" id="virtualKeyboard">
+        <div class="keyboard-row">
+            <div class="key" onclick="handleKeyClick('1')">1</div>
+            <div class="key" onclick="handleKeyClick('2')">2</div>
+            <div class="key" onclick="handleKeyClick('3')">3</div>
+            <div class="key" onclick="handleKeyClick('4')">4</div>
+            <div class="key" onclick="handleKeyClick('5')">5</div>
+            <div class="key" onclick="handleKeyClick('6')">6</div>
+            <div class="key" onclick="handleKeyClick('7')">7</div>
+            <div class="key" onclick="handleKeyClick('8')">8</div>
+            <div class="key" onclick="handleKeyClick('9')">9</div>
+            <div class="key" onclick="handleKeyClick('0')">0</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key" onclick="handleKeyClick('q')">Q</div>
+            <div class="key" onclick="handleKeyClick('w')">W</div>
+            <div class="key" onclick="handleKeyClick('e')">E</div>
+            <div class="key" onclick="handleKeyClick('r')">R</div>
+            <div class="key" onclick="handleKeyClick('t')">T</div>
+            <div class="key" onclick="handleKeyClick('y')">Y</div>
+            <div class="key" onclick="handleKeyClick('u')">U</div>
+            <div class="key" onclick="handleKeyClick('i')">I</div>
+            <div class="key" onclick="handleKeyClick('o')">O</div>
+            <div class="key" onclick="handleKeyClick('p')">P</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key" onclick="handleKeyClick('a')">A</div>
+            <div class="key" onclick="handleKeyClick('s')">S</div>
+            <div class="key" onclick="handleKeyClick('d')">D</div>
+            <div class="key" onclick="handleKeyClick('f')">F</div>
+            <div class="key" onclick="handleKeyClick('g')">G</div>
+            <div class="key" onclick="handleKeyClick('h')">H</div>
+            <div class="key" onclick="handleKeyClick('j')">J</div>
+            <div class="key" onclick="handleKeyClick('k')">K</div>
+            <div class="key" onclick="handleKeyClick('l')">L</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key" onclick="handleKeyClick('z')">Z</div>
+            <div class="key" onclick="handleKeyClick('x')">X</div>
+            <div class="key" onclick="handleKeyClick('c')">C</div>
+            <div class="key" onclick="handleKeyClick('v')">V</div>
+            <div class="key" onclick="handleKeyClick('b')">B</div>
+            <div class="key" onclick="handleKeyClick('n')">N</div>
+            <div class="key" onclick="handleKeyClick('m')">M</div>
+        </div>
+        <div class="keyboard-row">
+            <div class="key key-space" onclick="handleKeyClick(' ')">Space</div>
+            <div class="key key-backspace" onclick="handleKeyClick('Backspace')">Backspace</div>
+            <div class="key key-close" onclick="toggleKeyboard(false)">Close Keyboard</div>
+        </div>
+    </div>
     <script>
-        const inventory = []; 
-
+        const inventory = [];
+    
         const recipes = [
             {
                 name: 'Spaghetti Bolognese',
@@ -128,35 +182,33 @@
                                Step 4: Bake at 200°C until golden.`,
             }
         ];
-
+    
         function displayRecipes(filter = '') {
             const recipeList = document.getElementById('recipeList');
-            recipeList.innerHTML = ''; 
-
+            recipeList.innerHTML = '';
+    
             const selectedAllergens = Array.from(document.querySelectorAll('.allergy-filter:checked')).map(el => el.value);
             const selectedDiets = Array.from(document.querySelectorAll('.diet-filter:checked')).map(el => el.value);
             const selectedSkills = Array.from(document.querySelectorAll('.skill-filter:checked')).map(el => el.value);
-
+    
             const filteredRecipes = recipes.filter(recipe => {
-                const matchesSearch = recipe.name.toLowerCase().includes(filter.toLowerCase()) || 
+                const matchesSearch = recipe.name.toLowerCase().includes(filter.toLowerCase()) ||
                                       recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(filter.toLowerCase()));
-                const ingredientsAvailable = recipe.ingredients.every(ingredient => inventory.includes(ingredient.toLowerCase()));
                 const allergenSafe = selectedAllergens.every(allergy => !recipe.allergens.includes(allergy));
                 const dietMatch = selectedDiets.length === 0 || selectedDiets.includes(recipe.diet);
                 const skillMatch = selectedSkills.length === 0 || selectedSkills.includes(recipe.skill);
-
+    
                 return matchesSearch && allergenSafe && dietMatch && skillMatch;
             });
-
+    
             filteredRecipes.forEach(recipe => {
                 const card = document.createElement('div');
                 card.className = 'recipe-card';
-
+    
                 card.innerHTML = `
                     <div>
                         <h3>${recipe.name}</h3>
                         <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
-                        
                         <p>Skill Level: ${recipe.skill}</p>
                     </div>
                     <button onclick="toggleInstructions(this)">View</button>
@@ -164,40 +216,117 @@
                         <p>${recipe.instructions.replace(/\n/g, '<br>')}</p>
                     </div>
                 `;
-
+    
                 recipeList.appendChild(card);
             });
         }
-
+    
         function toggleInstructions(button) {
             const instructionsDiv = button.nextElementSibling;
             instructionsDiv.style.display = instructionsDiv.style.display === 'none' ? 'block' : 'none';
         }
-
+    
         function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            dropdown.classList.toggle('show');
-        }
 
+
+            document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                if (dropdown.id !== id) dropdown.classList.remove('show');
+            });
+            document.getElementById(id).classList.toggle('show');
+}
+
+    
         window.onclick = function(event) {
             if (!event.target.matches('.filter-button')) {
                 document.querySelectorAll('.dropdown-content').forEach(dropdown => {
                     dropdown.classList.remove('show');
                 });
             }
+        };
+    
+        function updateActiveFilters() {
+            const activeFiltersDiv = document.getElementById('activeFilters');
+            activeFiltersDiv.innerHTML = ''; // Clear previous filters
+    
+            const selectedAllergens = Array.from(document.querySelectorAll('.allergy-filter:checked')).map(el => el.value);
+            const selectedDiets = Array.from(document.querySelectorAll('.diet-filter:checked')).map(el => el.value);
+            const selectedSkills = Array.from(document.querySelectorAll('.skill-filter:checked')).map(el => el.value);
+    
+            const allSelectedFilters = [...selectedAllergens, ...selectedDiets, ...selectedSkills];
+    
+            if (allSelectedFilters.length === 0) {
+                activeFiltersDiv.innerHTML = '<p>No filters selected.</p>';
+                return;
+            }
+    
+            allSelectedFilters.forEach(filter => {
+                const filterBadge = document.createElement('span');
+                filterBadge.className = 'filter-badge';
+                filterBadge.textContent = filter;
+    
+                const removeButton = document.createElement('button');
+                removeButton.textContent = '✕';
+                removeButton.className = 'remove-filter';
+                removeButton.onclick = () => removeFilter(filter);
+    
+                filterBadge.appendChild(removeButton);
+                activeFiltersDiv.appendChild(filterBadge);
+            });
         }
-
-        displayRecipes();
-
-        document.getElementById('searchBar').addEventListener('input', (event) => {
-            displayRecipes(event.target.value);
-        });
-
+    
+        function removeFilter(filter) {
+            // Find and uncheck the corresponding checkbox
+            document.querySelector(`input[value="${filter}"]`).checked = false;
+    
+            // Update the recipes and filters
+            displayRecipes(document.getElementById('searchBar').value);
+            updateActiveFilters();
+        }
+    
+        // Modify filter event listeners to update both recipes and active filters
         document.querySelectorAll('.allergy-filter, .diet-filter, .skill-filter').forEach(filter => {
             filter.addEventListener('change', () => {
                 displayRecipes(document.getElementById('searchBar').value);
+                updateActiveFilters();
             });
         });
+    
+        // Ensure recipes and filters are displayed initially
+        displayRecipes();
+        updateActiveFilters();
+    
+        document.getElementById('searchBar').addEventListener('input', (event) => {
+            displayRecipes(event.target.value);
+        });
+        document.getElementById('searchBar').addEventListener('focus', () => {
+            document.getElementById('keyboard').style.display = 'flex'; // Show keyboard on focus
+        });
+
+        document.getElementById('searchBar').addEventListener('blur', () => {
+            document.getElementById('keyboard').style.display = 'none'; // Hide keyboard on blur
+        });
+        document.getElementById('searchBar').addEventListener('focus', () => {
+            toggleKeyboard(true); // Show keyboard on focus
+        });
+
+        function toggleKeyboard(show) {
+            const keyboard = document.getElementById("virtualKeyboard");
+            keyboard.style.display = show ? "flex" : "none";
+        }
+
+        function handleKeyClick(key) {
+             const searchBar = document.getElementById("searchBar");
+            if (key === 'Backspace') {
+                 searchBar.value = searchBar.value.slice(0, -1);
+            } else if (key === 'Space') {
+                searchBar.value += ' ';
+            } else {
+                searchBar.value += key;
+            }
+            displayRecipes(searchBar.value);
+        }
+
     </script>
+    
 </body>
 </html>
