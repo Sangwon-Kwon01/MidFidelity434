@@ -98,12 +98,6 @@ a:link, a:visited {
     flex-direction: column;
 }
 
-.tab-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding-bottom: 60px;
-}
-
 h1 {
     text-align: center;
 }
@@ -162,43 +156,82 @@ ul {
 }
 
 .input-section {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto auto;
+    gap: 10px;
     margin: 10px 0;
-    gap: 5px;
+    padding: 10px;
+    background-color: #f9f8eb;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
 }
 
 #category-select {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    width: 100%;
     padding: 5px;
     font-size: 14px;
-    width: 100px;
     box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #3C4C24;
+    background-color: #FEFFFB;
+    color: #3C4C24;
+}
+
+#allergen-select {
+    grid-column: 1 / span 3;
+    grid-row: 2;
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #3C4C24;
+    background-color: #FEFFFB;
+    color: #3C4C24;
 }
 
 #item-input {
+    grid-column: 3 / span 2;
+    grid-row: 1;
+    width: 100%;
     padding: 5px;
     font-size: 14px;
-    width: 150px;
     box-sizing: border-box;
-    
+    border-radius: 3px;
+    border: 1px solid #3C4C24;
+    background-color: #FEFFFB;
+    color: #3C4C24;
 }
 
 #quantity-input {
+    grid-column: 4;
+    grid-row: 2;
+    width: 100%;
     padding: 5px;
     font-size: 14px;
-    width: 60px;
     box-sizing: border-box;
-
+    border-radius: 3px;
+    border: 1px solid #3C4C24;
+    background-color: #FEFFFB;
+    color: #3C4C24;
 }
 
 #add-item-button {
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
+    grid-column: 5;
+    grid-row: 1 / span 2;
+    padding: 8px;
+    font-size: 16px;
     background-color: #3C4C24;
     color: #FEFFFB;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 100%;
 }
 
 .tab-content {

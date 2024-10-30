@@ -393,30 +393,15 @@ function addGrocToFav(newItem, selectedCategory, foodArr, foodSet) {
 }
 
 function addAllergyToFav(selectedCategory, foodArr, foodSet) {
-    const select = document.querySelector('#addModal select');
     const itemIcon = allergyIcons[selectedCategory];
-    selectedCategory = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
     const item = new Allergies(selectedCategory, itemIcon);
 
-    if (item && !foodArr.includes(item)) {
+    if (item && !foodArr.some(allergy => allergy.name === selectedCategory)) {
         foodArr.push(item);
+
+        localStorage.setItem('favAllergies', JSON.stringify(foodArr));
+
         openAddModel(foodArr, foodSet, 'allergy');
-        renderAllergies(foodArr)
-    }
-}
-
-function openRemModelRec(foodArr, name, type){
-    const index = foodArr.findIndex(item => item.name === name);
-    
-    if (index !== -1) {
-        foodArr.splice(index, 1); // Remove the item directly from the array
-    }
-
-    if (type === 'meal') {
-        renderRecipes(foodArr);
-    } else if (type === 'grocery') {
-        renderGroceries(foodArr);
-    } else {
         renderAllergies(foodArr);
     }
 }
@@ -428,3 +413,33 @@ document.addEventListener('DOMContentLoaded', () => {
     renderGroceries(favGrocery)
     renderAllergies(favAllergies)
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedAllergies = JSON.parse(localStorage.getItem('favAllergies'));
+    if (savedAllergies) {
+        savedAllergies.forEach(allergy => {
+            favAllergies.push(new Allergies(allergy.name, allergy.icon));
+        });
+    }
+
+    renderRecipes(favMeals);
+    renderGroceries(favGrocery);
+    renderAllergies(favAllergies);
+});
+
+function openRemModelRec(foodArr, name, type) {
+    const index = foodArr.findIndex(item => item.name === name);
+
+    if (index !== -1) {
+        foodArr.splice(index, 1);
+
+        if (type === 'allergy') {
+            localStorage.setItem('favAllergies', JSON.stringify(foodArr)); // Update localStorage for allergies
+            renderAllergies(foodArr);
+        } else if (type === 'meal') {
+            renderRecipes(foodArr);
+        } else {
+            renderGroceries(foodArr);
+        }
+    }
+}
