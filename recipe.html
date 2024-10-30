@@ -48,14 +48,8 @@
         <ul class="tabs">
             <li class="tab"><a href="inventory.html"><img src="inventory.png" /><br>Inventory</a></li>
             <li class="tab"><a href="shoppingList.html"><img src="shoppingIcon.png" /><br>Shopping List</a></li>
-<<<<<<< HEAD
-            <li class="tab" id="active"><a href="recipe.html"><img src="chef.png"/><br>Recipes</a></li>
-            <li class="tab"><a href="profile.html"><img src="user.png"/><br>Profile</a></li>
-=======
-            <li class="tab active-tab"><a href="recipe.html"><img src="chef.png" /><br>Recipes</a></li>
-
+            <li class="tab"><a href="recipe.html"><img src="chef.png" /><br>Recipes</a></li>
             <li class="tab"><a href="profile.html"><img src="user.png" /><br>Profile</a></li>
->>>>>>> 39324b74b83b411f525876fef28be95efe1bf78a
         </ul>
     </div>
     <div class="virtual-keyboard" id="virtualKeyboard">
@@ -332,14 +326,6 @@
             }
             displayRecipes(searchBar.value);
         }
-    
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active-tab'));
-                tab.classList.add('active-tab');
-            });
-        });
 
     </script>
     
