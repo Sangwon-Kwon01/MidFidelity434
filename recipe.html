@@ -53,6 +53,7 @@
         </ul>
     </div>
     <div class="virtual-keyboard" id="virtualKeyboard">
+        <div class="keyboard-close" onclick="toggleKeyboard(false)">✕</div>
         <div class="keyboard-row">
             <div class="key" onclick="handleKeyClick('1')">1</div>
             <div class="key" onclick="handleKeyClick('2')">2</div>
@@ -100,7 +101,7 @@
         <div class="keyboard-row">
             <div class="key key-space" onclick="handleKeyClick(' ')">Space</div>
             <div class="key key-backspace" onclick="handleKeyClick('Backspace')">Backspace</div>
-            <div class="key key-close" onclick="toggleKeyboard(false)">Close Keyboard</div>
+            
         </div>
     </div>
     <script>
