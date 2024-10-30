@@ -276,6 +276,7 @@ h4 {
     margin: 0 auto;
 }
 
+
 .keyboard-row {
     display: flex;
     justify-content: center;
@@ -303,4 +304,15 @@ h4 {
 }
 .key-backspace, .key-close {
     flex: 1.5;
+}
+
+.keyboard-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #333;
+    background: transparent;
+    border: none;
 }
