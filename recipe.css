@@ -13,7 +13,11 @@ body {
     width: 400px;
     height: 700px;
     margin: 0 auto;
+<<<<<<< HEAD
     background:	#ede9da;
+=======
+    background: #e0dac9;
+>>>>>>> 39324b74b83b411f525876fef28be95efe1bf78a
     padding: 20px;
     box-shadow: 0 0 10px black;
     position: relative;
@@ -156,13 +160,19 @@ button:hover {
     border-top: black .5px solid;
     list-style: none;
 }
-
 .tab {
     cursor: pointer;
     padding: 10px;
     color: black;
+<<<<<<< HEAD
     text-decoration: none;
     list-style: none;
+=======
+    background-color: rgba(255, 0, 0, 0);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    border: 0px solid #dddddd00;
+    margin-bottom: 0px;
+>>>>>>> 39324b74b83b411f525876fef28be95efe1bf78a
 }
 
 a:link, a:visited {
@@ -170,23 +180,21 @@ a:link, a:visited {
     text-decoration: none;
 }
 
+
 img {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
 }
 
 .tab a {
-    color: black;
+    
     text-decoration: none;
     font-size: 14px;
 }
-
-.tab img {
-    width: 20px;
-    height: 20px;
-    margin-bottom: 5px;
+.active-tab {
+    background-color: #3C4C24;  
+    color: #FEFFFB;             
 }
-
 
 .open {
     display: block;
@@ -196,10 +204,13 @@ img {
     flex-grow: 1;
     overflow-y: auto;
     padding-bottom: 60px;
+<<<<<<< HEAD
     margin-bottom: 10px;
     max-height: 400px;
     border: 1px solid #ccc;
     border-radius: 5px;
+=======
+>>>>>>> 39324b74b83b411f525876fef28be95efe1bf78a
 }
 
 .active-filters {
