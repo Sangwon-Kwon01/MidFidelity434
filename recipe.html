@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Kitchen<div id="h1-half">Kompanion</div></h1>
-        <h2>Recipe Suggestion</h2>
+        <h2>Kitchen Kompanion</h2>
+        <h4>Recipe Suggestion</h4>
         <input type="text" id="searchBar" placeholder="Search by ingredient or recipe name...">
         <h4>Click On Filter To Select Dietary Restrictions (If Any)</h4>
         <div class="active-filters">
@@ -48,8 +48,8 @@
         <ul class="tabs">
             <li class="tab"><a href="inventory.html"><img src="inventory.png" /><br>Inventory</a></li>
             <li class="tab"><a href="shoppingList.html"><img src="shoppingIcon.png" /><br>Shopping List</a></li>
-            <li class="tab" id="active"><a href="recipe.html"><img src="chef.png"/><br>Recipes</a></li>
-            <li class="tab"><a href="profile.html"><img src="user.png"/><br>Profile</a></li>
+            <li class="tab"><a href="recipe.html"><img src="chef.png" /><br>Recipes</a></li>
+            <li class="tab"><a href="profile.html"><img src="user.png" /><br>Profile</a></li>
         </ul>
     </div>
     <div class="virtual-keyboard" id="virtualKeyboard">
@@ -276,15 +276,15 @@
         }
     
         function removeFilter(filter) {
-            // Find and uncheck the corresponding checkbox
+            
             document.querySelector(`input[value="${filter}"]`).checked = false;
     
-            // Update the recipes and filters
+            
             displayRecipes(document.getElementById('searchBar').value);
             updateActiveFilters();
         }
     
-        // Modify filter event listeners to update both recipes and active filters
+        
         document.querySelectorAll('.allergy-filter, .diet-filter, .skill-filter').forEach(filter => {
             filter.addEventListener('change', () => {
                 displayRecipes(document.getElementById('searchBar').value);
@@ -292,7 +292,7 @@
             });
         });
     
-        // Ensure recipes and filters are displayed initially
+        
         displayRecipes();
         updateActiveFilters();
     
@@ -300,14 +300,14 @@
             displayRecipes(event.target.value);
         });
         document.getElementById('searchBar').addEventListener('focus', () => {
-            document.getElementById('keyboard').style.display = 'flex'; // Show keyboard on focus
+            document.getElementById('keyboard').style.display = 'flex'; 
         });
 
         document.getElementById('searchBar').addEventListener('blur', () => {
-            document.getElementById('keyboard').style.display = 'none'; // Hide keyboard on blur
+            document.getElementById('keyboard').style.display = 'none'; 
         });
         document.getElementById('searchBar').addEventListener('focus', () => {
-            toggleKeyboard(true); // Show keyboard on focus
+            toggleKeyboard(true); 
         });
 
         function toggleKeyboard(show) {
