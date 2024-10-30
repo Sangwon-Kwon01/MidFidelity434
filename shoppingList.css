@@ -53,11 +53,11 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #ddd; /* Border around each item */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    cursor: pointer; /* Change cursor on hover */
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    background-color: #f9f9f9; 
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 li.completed {
@@ -91,7 +91,10 @@ li.completed {
     cursor: pointer;
     padding: 10px;
     color: black;
-    
+    background-color: rgba(255, 0, 0, 0);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    border: 0px solid #dddddd00;
+    margin-bottom: 0px;
 }
 
 a:link, a:visited {
@@ -114,11 +117,11 @@ img {
     width: 40px;
     height: 40px;
     margin-right: 10px;
-    display: none; /* Initially hidden for uncategorized items */
+    display: none;
 }
 
 .quantity {
-    width: 30px; /* Set the quantity input to a narrow width */
+    width: 30px;
     padding: 5px;
     font-size: 12px;
     text-align: center;
@@ -127,11 +130,15 @@ img {
 ul {
     list-style: none;
     padding: 0;
-    max-height: 400px; /* Adjust as needed for desired scroll height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    margin-bottom: 20px; /* Space between list and bottom tabs */
-    border: 1px solid #ddd; /* Optional: adds a border around the list */
-    border-radius: 5px; /* Optional: rounds the corners of the list */
-    background-color: #f9f9f9; /* Optional: background color for the list */
+    max-height: 400px;
+    overflow-y: auto; 
+    margin-bottom: 20px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    background-color: #f9f9f9; 
 }
 
+#active {
+    background-color: #3C4C24;
+    font-weight: bold;
+}

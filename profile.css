@@ -48,7 +48,7 @@ div.scrollmenu, div.scrollmenu-sug, div.scrollmenu-fav, div.scrollmenu-gro{
 .scroll-item {
     display: inline-block;
     text-align: center; 
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
 .scroll-recipes {
@@ -56,13 +56,13 @@ div.scrollmenu, div.scrollmenu-sug, div.scrollmenu-fav, div.scrollmenu-gro{
     height: 70px;
     display: block;
     margin: 0 auto;
-    padding-bottom: 10px; 
+    padding-bottom: 5px; 
 }
 
 .scroll-item span {
     display: block;
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 .tabs {
@@ -128,6 +128,7 @@ ul {
 }
 
 .add-item {
+    display: flex;
     width: 15px;
     height: 15px;
     padding-left: 2px;
@@ -145,8 +146,19 @@ ul {
     height: 100%;
     justify-content: center;  
     align-items: center;
+    margin-top: 10px;
 }
-
+.modal-overlay {
+    margin: 0px auto;
+    margin-bottom: 50px;
+    margin-top: -10px;
+    padding: 20px;
+    width: 400px;    
+    height: 30vh;
+    justify-content: center; 
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7); 
+}
 .modal-content {
     background-color: #fff;
     margin: 15% auto;
@@ -154,9 +166,11 @@ ul {
     border: 1px solid #888;
     width: 400px;    
     height: 56.2vh;
+    max-height: 56.2vh;
+    overflow-y: auto;
     justify-content: center; 
     align-items: center;
-
+    margin-top: -84px;
 }
 
 .close {
@@ -191,4 +205,16 @@ button {
     padding: 10px 20px;
     margin-left: 130px;
     margin-top: 10px;
+}
+
+#active {
+    background-color: #3C4C24;
+    font-weight: bold;
+    border-radius: 5px; 
+}
+
+#remove {
+    cursor: pointer;
+    padding-left: 27px;
+    padding-top: 2px;
 }

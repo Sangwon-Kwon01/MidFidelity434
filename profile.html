@@ -21,24 +21,24 @@
                 <div style="display: flex; align-items: center;">
                     <div class="green">Favorite Groceries</div>
                     <div class="add-item">
-                        <img src="scroll_icons/add.png" class="add-item" onclick="openAddModel(favGrocery, allGrocerySet, 'grocery')"/>
+                        <img src="scroll_icons/add.png" class="add-item" onclick="openAddModelGroc(favGrocery, allGrocerySet, 'grocery')"/>
                     </div>
                 </div>
 
                 <div class="scrollmenu-gro">
                 </div>
                 
-                <br>
 
                 <div style="display: flex; align-items: center;">
                     <div class="green">Favorite Recipes</div>
                     <div class="add-item">
-                        <img src="scroll_icons/add.png" class="add-item" onclick="openAddModel(favMeals, allMealsSet, 'meal')"/>
+                        <img src="scroll_icons/add.png" class="add-item" onclick="openAddModelRec(favMeals, allMealsSet, 'meal')"/>
                     </div>
                 </div>
 
                 <div class="scrollmenu-fav">
                 </div>
+
 
                 <div style="display: flex; align-items: center;">
                     <div class="green">Allergies</div>
@@ -69,11 +69,34 @@
                 </div>
 
                 <div id="addModal" class="modal">
+                    <div class="modal-overlay"></div>
                     <div class="modal-content">
                         <span class="close" onclick="closeAddModal()">&times;</span>
                         <h2>Add Item</h2>
-                        <select></select>
+                        <input type="text" id="new" placeholder="New Item To Add..."><select></select>
                         <button id="addToFavButton">Add to Favorites</button>
+                        <div class="meal-pics"></div>
+                    </div>
+                </div>
+
+                <div id="addModalAllergy" class="modal">
+                    <div class="modal-overlay"></div>
+                    <div class="modal-content">
+                        <span class="close" onclick="closeAddModalAllergy()">&times;</span>
+                        <h2>Add Item</h2>
+                        <select></select>
+                        <button id="addToFavButton2">Add to Favorites</button>
+                        <div class="meal-pics"></div>
+                    </div>
+                </div>
+
+                <div id="removeModal" class="modal">
+                    <div class="modal-overlay"></div>
+                    <div class="modal-content">
+                        <span class="close" onclick="closeAddModal()">&times;</span>
+                        <h2>Remove Item</h2>
+                        <select></select>
+                        <button id="removeFavButton">Add to Favorites</button>
                         <div class="meal-pics"></div>
                     </div>
                 </div>
@@ -85,7 +108,7 @@
             <li class="tab"><a href="inventory.html"><img src="inventory.png" /><br>Inventory</a></li>
             <li class="tab"><a href="shoppingList.html"><img src="shoppingIcon.png" /><br>Shopping List</a></li>
             <li class="tab"><a href="recipe.html"><img src="chef.png"/><br>Recipes</a></li>
-            <li class="tab"><a href="profile.html"><img src="user.png"/><br>Profile</a></li>
+            <li class="tab" id="active"><a href="profile.html"><img src="user.png"/><br>Profile</a></li>
         </ul>
     </div>
 </body>
