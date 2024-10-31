@@ -394,6 +394,7 @@ function addGrocToFav(newItem, selectedCategory, foodArr, foodSet) {
 
 function addAllergyToFav(selectedCategory, foodArr, foodSet) {
     const itemIcon = allergyIcons[selectedCategory];
+    selectedCategory = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
     const item = new Allergies(selectedCategory, itemIcon);
 
     if (item && !foodArr.some(allergy => allergy.name === selectedCategory)) {
