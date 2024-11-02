@@ -16,11 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         savedItems.forEach(item => addItemToDOM(item));
     }
 
-    function loadAllergiesFromLocalStorage() {
-        const allergies = JSON.parse(localStorage.getItem('userAllergies')) || [];
-        return allergies;
-    }
-
     function saveItemsToLocalStorage() {
         const items = Array.from(document.querySelectorAll('#items-list .sub-item')).map(item => {
             return {
@@ -80,18 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const allergen = document.getElementById('allergen-select').value;
 
         if (itemName && quantity > 0) {
-            const userAllergies = loadAllergiesFromLocalStorage();
-
-
-
-            if (allergen && userAllergies.map(a => a.toLowerCase()).includes(allergen.toLowerCase())) {
-                const proceed = confirm(`You or someone you're sharing your space with has an allergy to ${allergen}. Proceed with caution?`);
+            if (allergen === 'peanuts') {
+                const proceed = confirm("You or someone you're sharing your space with has a peanut allergy. Would you like to proceed?");
                 if (!proceed) return;
             }
 
             const itemData = { category, itemName, quantity, allergen };
             addItemToDOM(itemData);
-
 
             document.getElementById('item-input').value = '';
             document.getElementById('quantity-input').value = '1';
@@ -118,6 +108,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Load items and allergies from localStorage on page load
     loadItemsFromLocalStorage();
 });
