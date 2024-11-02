@@ -43,12 +43,14 @@ body {
 div.scrollmenu, div.scrollmenu-sug, div.scrollmenu-fav, div.scrollmenu-gro{
     overflow: auto;
     white-space: nowrap;
+    align-items: center;
 }
 
 .scroll-item {
     display: inline-block;
     text-align: center; 
     margin: 0 10px;
+    align-items: center;
 }
 
 .scroll-recipes {
@@ -63,6 +65,7 @@ div.scrollmenu, div.scrollmenu-sug, div.scrollmenu-fav, div.scrollmenu-gro{
     display: block;
     font-size: 14px;
     margin-top: 3px;
+    align-items: center;
 }
 
 .tabs {
@@ -117,9 +120,19 @@ h1{
     display: inline;
 }
 
+#color-main {
+    color: #3C4C24;
+}
+
 img {
     width: 20px;
     height: 20px;
+}
+
+#remove {
+    width: 15px;
+    height: 15px;
+    padding-top: 3.5px;
 }
 
 ul {
@@ -134,6 +147,14 @@ ul {
     padding-left: 2px;
     margin-left: 0px;
     padding-top: 3.5px;
+}
+
+.remove-item {
+    width: 15px;
+    height: 15px;
+    padding-top: 3.5px;
+    align-items: center;
+    display: block;
 }
 
 .modal {
@@ -213,8 +234,12 @@ button {
     border-radius: 5px; 
 }
 
-#remove {
-    cursor: pointer;
-    padding-left: 27px;
-    padding-top: 2px;
+.modal-ingredients {
+    font-size: 20px;
+    margin-top: -5px;
+    padding-left: 20px;
+}
+
+.modal-ingredients li {
+    list-style: circle;
 }

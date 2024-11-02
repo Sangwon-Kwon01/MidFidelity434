@@ -1,13 +1,14 @@
 /*************************                       Objects Constructors          *********************************/
 
-function Meal(name, icon) {
+function Meal(name, icon, ingredients) {
     this.name = name;
-    this.icon = icon
+    this.icon = icon;
+    this.ingredients = ingredients
 }
 
-function Grocery(name, price) {
+function Grocery(name, icon) {
     this.name = name;
-    this.price = price;
+    this.icon = icon
 }
 
 function Allergies(name, icon) {
@@ -36,93 +37,6 @@ const allergyIcons = {
     gluten: 'gluten.png',
     fish: 'scroll_icons/shrimp.png'
 };
-
-/*************************                       Recipies Objects          *********************************/
-
-// const pasta = new Meal("Pasta", 1200, [
-//     "Pasta",
-//     "Butter",
-//     "Heavy Cream",
-//     "Parmesan Cheese",
-//     "Garlic",
-//     "Salt and Pepper"
-// ]);
-
-// const quesadilla = new Meal("Quesadilla", 700, [
-//     "Flour Tortillas",
-//     "Shredded Cheese",
-//     "Chicken or Beef (optional)",
-//     "Bell Peppers",
-//     "Onion",
-//     "Sour Cream",
-//     "Salsa"
-// ]);
-
-// const steak = new Meal("Steak", 800, [
-//     "Steak (Ribeye, Sirloin, etc.)",
-//     "Olive Oil",
-//     "Salt",
-//     "Pepper",
-//     "Garlic",
-//     "Rosemary or Thyme (optional)"
-// ]);
-
-// const waffles = new Meal("Waffles", 600, [
-//     "Flour",
-//     "Baking Powder",
-//     "Sugar",
-//     "Milk",
-//     "Eggs",
-//     "Butter",
-//     "Vanilla Extract"
-// ]);
-
-// const tacos = new Meal("Tacos", 500, [
-//     "Tortillas (Corn or Flour)",
-//     "Ground Beef or Chicken",
-//     "Taco Seasoning",
-//     "Lettuce",
-//     "Tomato",
-//     "Cheese",
-//     "Sour Cream",
-//     "Salsa or Hot Sauce"
-// ]);
-
-// const salad = new Meal("Salad", 150, [
-//     "Lettuce or Mixed Greens",
-//     "Cherry Tomatoes",
-//     "Cucumber",
-//     "Red Onion",
-//     "Carrots",
-//     "Olive Oil",
-//     "Vinegar or Lemon Juice",
-//     "Salt and Pepper"
-// ]);
-
-// const milkshake = new Meal("Milkshake", 400, [
-//     "Ice Cream (Vanilla or Chocolate)",
-//     "Milk",
-//     "Whipped Cream (optional)",
-//     "Chocolate Syrup (optional)",
-//     "Maraschino Cherry (optional)"
-// ]);
-
-/*************************                       Grocery Objects          *********************************/
-const apples = new Grocery("Apples", 2.50);
-const butter = new Grocery("Butter", 3.00);
-const cereal = new Grocery("Cereal", 4.00);
-const eggs = new Grocery("Eggs", 2.00);
-const strawberries = new Grocery("Strawberries", 5.00);
-const chicken = new Grocery("Chicken", 8.00);
-const carrots = new Grocery("Carrots", 1.50);
-const milk = new Grocery("Milk", 1.80);
-
-/*************************                       Allergy Objects          *********************************/
-const peanuts = new Allergies("Peanuts");
-const treeNuts = new Allergies("Tree Nuts");
-const shrimp = new Allergies("Shrimp");
-
-
 /*************************                       Starting Page Items          *********************************/
 const favMeals = [];
 const favGrocery = [];
@@ -130,8 +44,8 @@ const favAllergies = [];
 
 /*************************                       Sets with all items for objects          *********************************/
 const allMealsSet = new Set([]);
-const allGrocerySet = new Set([apples, butter, cereal, eggs, strawberries, chicken, carrots, milk]);
-const allAllergies = new Set([peanuts, treeNuts, shrimp]);
+const allGrocerySet = new Set([]);
+const allAllergies = new Set([]);
 
 
 /*************************                       Render through lists to print on page          *********************************/
@@ -147,11 +61,10 @@ function renderGroceries(favGrocery) {
             <img src="${meal.icon}" class="scroll-recipes"/>
             <span>${meal.name}</span>
             <span>
-                <img src="remove.png" class="add-item" id="remove" onclick="openRemModelRec(favGrocery, '${meal.name}', 'grocery')"/>
+                <img src="remove.png" id="remove" onclick="openRemModelRec(favGrocery, '${meal.name}', 'grocery')"/>
             </span>
         `;
-        
-        // mealDiv.onclick = () => showGroceryDetails(meal);
+
         scrollMenu.appendChild(mealDiv);
     });
 }
@@ -165,14 +78,14 @@ function renderRecipes(favMeals) {
         mealDiv.classList.add('scroll-item');
         
         mealDiv.innerHTML = `
-            <img src="${meal.icon}" class="scroll-recipes"/>
+            <img src="${meal.icon}" class="scroll-recipes" onclick="showMealDetails(${meal})"/>
             <span>${meal.name}</span>
             <span>
-                <img src="remove.png" class="add-item" id="remove" onclick="openRemModelRec(favMeals, '${meal.name}', 'meal')"/>
+                <img src="remove.png" id="remove" onclick="openRemModelRec(favMeals, '${meal.name}', 'meal')"/>
             </span>
         `;
         
-        //mealDiv.onclick = () => showMealDetails(meal);
+        mealDiv.querySelector('.scroll-recipes').onclick = () => showMealDetails(meal);
         scrollMenu.appendChild(mealDiv);
     });
 }
@@ -189,7 +102,7 @@ function renderAllergies(favMeals) {
             <img src="${meal.icon}" class="scroll-recipes"/>
             <span>${meal.name}</span>
             <span>
-                <img src="remove.png" class="add-item" id="remove" onclick="openRemModelRec(favAllergies, '${meal.name}', 'allergy')"/>
+                <img src="remove.png" id="remove" onclick="openRemModelRec(favAllergies, '${meal.name}', 'allergy')"/>
             </span>
         `;
         
@@ -201,10 +114,10 @@ function renderAllergies(favMeals) {
 function showMealDetails(meal) {
     const modal = document.getElementById('mealModal');
     modal.querySelector('.modal-name').innerText = meal.name;
-    modal.querySelector('.modal-calories').innerHTML = `<strong>Calories</strong>: ${meal.calories}`;
     const ingredientsList = modal.querySelector('.modal-ingredients');
     ingredientsList.innerHTML = '';
 
+    console.log(meal.name);
     meal.ingredients.forEach(ingredient => {
         const listItem = document.createElement('li');
         listItem.innerText = ingredient;
@@ -213,14 +126,6 @@ function showMealDetails(meal) {
 
     modal.style.display = 'block';
 }
-
-// function showGroceryDetails(grocery) {
-//     const modal = document.getElementById('groceryModal');
-//     modal.querySelector('.modal-name').innerText = grocery.name;
-//     modal.querySelector('.modal-price').innerHTML = `<strong>Price</strong>: \$${grocery.price}`;
-
-//     modal.style.display = 'block';
-// }
 
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
@@ -309,11 +214,12 @@ function openAddModelGroc(foodArr, foodSet, type) {
 }
 
 function openAddModelRec(foodArr, foodSet, type) {
-    const addModal = document.getElementById('addModal');
+    const addModal = document.getElementById('addModalRec');
     const mealPicsContainer = addModal.querySelector('.meal-pics');
+    const ingredientsTextArea = document.getElementById('ingredients-list');
     const select = addModal.querySelector('select');
     const newItemInput = addModal.querySelector('#new');
-    const addToFavButton = document.getElementById('addToFavButton');
+    const addToFavButton = document.getElementById('addToFavButton3');
     
     mealPicsContainer.innerHTML = ''; 
     select.innerHTML = '';
@@ -323,7 +229,7 @@ function openAddModelRec(foodArr, foodSet, type) {
         option.value = category;
         option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
         
-        option.setAttribute('data-icon', categoryIcons[category]);
+        option.setAttribute('data-icon', chefIcons[category]);
 
         select.appendChild(option);
     });
@@ -340,10 +246,13 @@ function openAddModelRec(foodArr, foodSet, type) {
     addToFavButton.onclick = () => {
         const newItem = newItemInput.value.trim(); 
         const selectedCategory = select.value;
+        const ingredientsText = ingredientsTextArea.value;
+        const ingredientsArray = ingredientsText.split(',').map(item => item.trim());
+        ingredientsTextArea.value = '';
         newItemInput.value = '';
         
         if (newItem) {
-            addMealToFav(newItem, selectedCategory, foodArr, foodSet);
+            addMealToFav(newItem, selectedCategory, foodArr, ingredientsArray, foodSet);
         } else {
             alert("Please enter an item to add.");
         }
@@ -358,21 +267,29 @@ function closeAddModal(foodArr) {
     addModal.style.display = 'none';
 }
 
+function closeAddModalRec() {
+    const addModal = document.getElementById('addModalRec');
+    addModal.style.display = 'none';
+}
+
 function closeAddModalAllergy() {
     const addModal = document.getElementById('addModalAllergy');
     addModal.style.display = 'none';
 }
 
 
-function addMealToFav(newItem, selectedCategory, foodArr, foodSet) {
+function addMealToFav(newItem, selectedCategory, foodArr, ingredientsArray, foodSet) {
     const select = document.querySelector('#addModal select');
     const itemIcon = chefIcons[selectedCategory];
-    const item = new Meal(newItem, itemIcon);
+    const item = new Meal(newItem, itemIcon, ingredientsArray);
 
     //const selectedMeal = Array.from(foodSet).find(meal => meal.name === selectedMealName);
 
-    if (item && !foodArr.includes(item)) {
+    if (item && !foodArr.some(meal => meal.name === newItem)) {
         foodArr.push(item);
+
+        localStorage.setItem('favMeals', JSON.stringify(foodArr));
+
         openAddModelRec(foodArr, foodSet, 'meal');
         renderRecipes(foodArr)
     }
@@ -381,12 +298,15 @@ function addMealToFav(newItem, selectedCategory, foodArr, foodSet) {
 function addGrocToFav(newItem, selectedCategory, foodArr, foodSet) {
     const select = document.querySelector('#addModal select');
     const itemIcon = categoryIcons[selectedCategory];
-    const item = new Meal(newItem, itemIcon);
+    const item = new Grocery(newItem, itemIcon);
 
     //const selectedGroc = Array.from(foodSet).find(meal => meal.name === selectedMealName);
 
     if (item && !foodArr.includes(item)) {
         foodArr.push(item);
+
+        localStorage.setItem('favGrocery', JSON.stringify(foodArr));
+
         openAddModelGroc(foodArr, foodSet, 'grocery');
         renderGroceries(foodArr)
     }
@@ -394,6 +314,7 @@ function addGrocToFav(newItem, selectedCategory, foodArr, foodSet) {
 
 function addAllergyToFav(selectedCategory, foodArr, foodSet) {
     const itemIcon = allergyIcons[selectedCategory];
+    selectedCategory = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
     const item = new Allergies(selectedCategory, itemIcon);
 
     if (item && !foodArr.some(allergy => allergy.name === selectedCategory)) {
@@ -422,6 +343,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const savedGroc = JSON.parse(localStorage.getItem('favGrocery'));
+    if (savedGroc) {
+        savedGroc.forEach(meal => {
+            favGrocery.push(new Grocery(meal.name, meal.icon));
+        });
+    }
+
+    const savedRec = JSON.parse(localStorage.getItem('favMeals'));
+    if (savedRec) {
+        savedRec.forEach(meal => {
+            favMeals.push(new Meal(meal.name, meal.icon, meal.ingredients));
+        });
+    }
+
     renderRecipes(favMeals);
     renderGroceries(favGrocery);
     renderAllergies(favAllergies);
@@ -437,8 +372,10 @@ function openRemModelRec(foodArr, name, type) {
             localStorage.setItem('favAllergies', JSON.stringify(foodArr)); // Update localStorage for allergies
             renderAllergies(foodArr);
         } else if (type === 'meal') {
+            localStorage.setItem('favMeals', JSON.stringify(foodArr));
             renderRecipes(foodArr);
         } else {
+            localStorage.setItem('favGrocery', JSON.stringify(foodArr));
             renderGroceries(foodArr);
         }
     }
