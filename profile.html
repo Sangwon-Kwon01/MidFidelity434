@@ -51,20 +51,12 @@
                 </div>
 
                 <div id="mealModal" class="modal">
+                    <div class="modal-overlay"></div>
                     <div class="modal-content">
                         <span class="close" onclick="closeModal('mealModal')">&times;</span>
                         <h2 class="modal-name"></h2>
-                        <h4 class="modal-calories"></h4>
                         <h4 class="model-ing-title">Ingredients:</h4>
                         <ul class="modal-ingredients"></ul>
-                    </div>
-                </div>
-
-                <div id="groceryModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal('groceryModal')">&times;</span>
-                        <h2 class="modal-name"></h2>
-                        <h4 class="modal-price"></h4>
                     </div>
                 </div>
 
@@ -73,8 +65,24 @@
                     <div class="modal-content">
                         <span class="close" onclick="closeAddModal()">&times;</span>
                         <h2>Add Item</h2>
-                        <input type="text" id="new" placeholder="New Item To Add..."><select></select>
+                        <strong id="color-main">Name: </strong><input type="text" id="new" placeholder="New Item To Add..."><br><br>
+                        <strong id="color-main">Category: </strong><select></select>
                         <button id="addToFavButton">Add to Favorites</button>
+                        <hr>
+                        <div class="meal-pics"></div>
+                    </div>
+                </div>
+
+                <div id="addModalRec" class="modal">
+                    <div class="modal-overlay"></div>
+                    <div class="modal-content">
+                        <span class="close" onclick="closeAddModalRec()">&times;</span>
+                        <h2>Add Item</h2>
+                        <strong id="color-main">Name: </strong><input type="text" id="new" placeholder="New Item To Add..."><br><br>
+                        <strong id="color-main">Ingredients: </strong><textarea id="ingredients-list" rows="3" cols="40" placeholder="Seperate items by ',' ex; ing1,ing2,..."></textarea><br><br>
+                        <strong id="color-main">Skill Level: </strong><select></select>
+                        <button id="addToFavButton3">Add to Favorites</button>
+                        <hr>
                         <div class="meal-pics"></div>
                     </div>
                 </div>
@@ -86,6 +94,7 @@
                         <h2>Add Item</h2>
                         <select></select>
                         <button id="addToFavButton2">Add to Favorites</button>
+                        <hr>
                         <div class="meal-pics"></div>
                     </div>
                 </div>
