@@ -175,9 +175,32 @@ function openAddModelGroc(foodArr, foodSet, type) {
     const select = addModal.querySelector('select');
     const newItemInput = addModal.querySelector('#new');
     const addToFavButton = document.getElementById('addToFavButton');
+    let activeInput = null;
     
     mealPicsContainer.innerHTML = ''; 
     select.innerHTML = '';
+
+    newItemInput.addEventListener('focus', () => {
+        activeInput = newItemInput;
+        toggleKeyboard(true);
+    });
+
+    function toggleKeyboard(show) {
+        const keyboard = document.getElementById("virtualKeyboard");
+        keyboard.style.display = show ? "flex" : "none";
+    }
+
+    window.handleKeyClick = function(key) {
+        if (activeInput) {
+            if (key === 'Backspace') {
+                activeInput.value = activeInput.value.slice(0, -1);
+            } else if (key === 'Space') {
+                activeInput.value += ' ';
+            } else {
+                activeInput.value += key;
+            }
+        }
+    };
 
     Object.keys(categoryIcons).forEach(category => {
         const option = document.createElement('option');
@@ -221,8 +244,37 @@ function openAddModelRec(foodArr, foodSet, type) {
     const newItemInput = addModal.querySelector('#new');
     const addToFavButton = document.getElementById('addToFavButton3');
     
+    let activeInput = null;
+
     mealPicsContainer.innerHTML = ''; 
     select.innerHTML = '';
+
+    newItemInput.addEventListener('focus', () => {
+        activeInput = newItemInput;
+        toggleKeyboard(true);
+    });
+
+    ingredientsTextArea.addEventListener('focus', () => {
+        activeInput = ingredientsTextArea;
+        toggleKeyboard(true);
+    });
+
+    function toggleKeyboard(show) {
+        const keyboard = document.getElementById("virtualKeyboard");
+        keyboard.style.display = show ? "flex" : "none";
+    }
+
+    window.handleKeyClick = function(key) {
+        if (activeInput) {
+            if (key === 'Backspace') {
+                activeInput.value = activeInput.value.slice(0, -1);
+            } else if (key === 'Space') {
+                activeInput.value += ' ';
+            } else {
+                activeInput.value += key;
+            }
+        }
+    };
 
     Object.keys(chefIcons).forEach(category => {
         const option = document.createElement('option');
@@ -328,6 +380,22 @@ function addAllergyToFav(selectedCategory, foodArr, foodSet) {
 }
 
 /*************************                       Loading the Page          *********************************/
+function toggleKeyboard(show) {
+    const keyboard = document.getElementById("virtualKeyboard");
+    keyboard.style.display = show ? "flex" : "none";
+}
+
+function handleKeyClick(key, inputId = "searchBar") {
+    const inputField = document.getElementById(inputId);
+
+    if (key === 'Backspace') {
+        inputField.value = inputField.value.slice(0, -1);
+    } else if (key === 'Space') {
+        inputField.value += ' ';
+    } else {
+        inputField.value += key;
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     renderRecipes(favMeals)
