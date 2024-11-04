@@ -23,10 +23,10 @@
                 <option value="snacks">Snacks</option>
             </select>
 
-            <input type="text" id="new" placeholder="New Grocery Item...">
+            <input type="text" id="new" placeholder="New Grocery Item..." readonly onclick="toggleKeyboard(true)">
             <button id="add" class="add">ADD +</button>
         </div>
-
+        
         <ul id="shopping-list"></ul>
         
         <ul class="tabs">
@@ -35,6 +35,58 @@
             <li class="tab"><a href="recipe.html"><img src="chef.png"/><br>Recipes</a></li>
             <li class="tab"><a href="profile.html"><img src="user.png"/><br>Profile</a></li>
         </ul>
+        
+        <div class="virtual-keyboard" id="virtualKeyboard">
+            <div class="keyboard-close" onclick="toggleKeyboard(false)">✕</div>
+            <div class="keyboard-row">
+                <div class="key" onclick="handleKeyClick('1')">1</div>
+                <div class="key" onclick="handleKeyClick('2')">2</div>
+                <div class="key" onclick="handleKeyClick('3')">3</div>
+                <div class="key" onclick="handleKeyClick('4')">4</div>
+                <div class="key" onclick="handleKeyClick('5')">5</div>
+                <div class="key" onclick="handleKeyClick('6')">6</div>
+                <div class="key" onclick="handleKeyClick('7')">7</div>
+                <div class="key" onclick="handleKeyClick('8')">8</div>
+                <div class="key" onclick="handleKeyClick('9')">9</div>
+                <div class="key" onclick="handleKeyClick('0')">0</div>
+            </div>
+            <div class="keyboard-row">
+                <div class="key" onclick="handleKeyClick('q')">Q</div>
+                <div class="key" onclick="handleKeyClick('w')">W</div>
+                <div class="key" onclick="handleKeyClick('e')">E</div>
+                <div class="key" onclick="handleKeyClick('r')">R</div>
+                <div class="key" onclick="handleKeyClick('t')">T</div>
+                <div class="key" onclick="handleKeyClick('y')">Y</div>
+                <div class="key" onclick="handleKeyClick('u')">U</div>
+                <div class="key" onclick="handleKeyClick('i')">I</div>
+                <div class="key" onclick="handleKeyClick('o')">O</div>
+                <div class="key" onclick="handleKeyClick('p')">P</div>
+            </div>
+            <div class="keyboard-row">
+                <div class="key" onclick="handleKeyClick('a')">A</div>
+                <div class="key" onclick="handleKeyClick('s')">S</div>
+                <div class="key" onclick="handleKeyClick('d')">D</div>
+                <div class="key" onclick="handleKeyClick('f')">F</div>
+                <div class="key" onclick="handleKeyClick('g')">G</div>
+                <div class="key" onclick="handleKeyClick('h')">H</div>
+                <div class="key" onclick="handleKeyClick('j')">J</div>
+                <div class="key" onclick="handleKeyClick('k')">K</div>
+                <div class="key" onclick="handleKeyClick('l')">L</div>
+            </div>
+            <div class="keyboard-row">
+                <div class="key" onclick="handleKeyClick('z')">Z</div>
+                <div class="key" onclick="handleKeyClick('x')">X</div>
+                <div class="key" onclick="handleKeyClick('c')">C</div>
+                <div class="key" onclick="handleKeyClick('v')">V</div>
+                <div class="key" onclick="handleKeyClick('b')">B</div>
+                <div class="key" onclick="handleKeyClick('n')">N</div>
+                <div class="key" onclick="handleKeyClick('m')">M</div>
+            </div>
+            <div class="keyboard-row">
+                <div class="key key-space" onclick="handleKeyClick(' ')">Space</div>
+                <div class="key key-backspace" onclick="handleKeyClick('Backspace')">Backspace</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -49,6 +101,20 @@
 
         document.getElementById('add').addEventListener('click', addItem);
         document.getElementById('category-filter').addEventListener('change', filterItems);
+
+        function toggleKeyboard(show) {
+            const keyboard = document.getElementById('virtualKeyboard');
+            keyboard.style.display = show ? 'block' : 'none';
+        }
+
+        function handleKeyClick(key) {
+            const input = document.getElementById('new');
+            if (key === 'Backspace') {
+                input.value = input.value.slice(0, -1);
+            } else {
+                input.value += key;
+            }
+        }
 
         function addItem() {
             let itemText = document.getElementById('new').value.trim();
@@ -114,6 +180,7 @@
 
             document.getElementById('shopping-list').appendChild(li);
             document.getElementById('new').value = '';
+            toggleKeyboard(false);
         }
 
         function toggleCompleted(event) {
@@ -137,4 +204,3 @@
 </body>
 
 </html>
-
