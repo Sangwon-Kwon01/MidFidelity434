@@ -1,7 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-button');
     const itemsList = document.getElementById('items-list');
+    const fridgeList = document.getElementById('refrigerator-items-list');
     const addItemButton = document.getElementById('add-item-button');
+    const locationSelect = document.getElementById('location-select');
+    const categorySelect = document.getElementById('category-select');
+    const itemInput = document.getElementById('item-input');
+    const unitInput = document.getElementById('unit-input');
+    const quantityInput = document.getElementById('quantity-input');
+    const allergenSelect = document.getElementById('allergen-select');
 
     const categoryIcons = {
         meats: 'meatsIcon.png',
@@ -11,102 +18,155 @@ document.addEventListener('DOMContentLoaded', function() {
         frozen: 'frozenIcon.png'
     };
 
+    // Load items from localStorage
     function loadItemsFromLocalStorage() {
         const savedItems = JSON.parse(localStorage.getItem('yourStock')) || [];
-        savedItems.forEach(item => addItemToDOM(item));
+        savedItems.forEach(item => addItemToDOM(item, itemsList));
     }
 
     function saveItemsToLocalStorage() {
-        const items = Array.from(document.querySelectorAll('#items-list .sub-item')).map(item => {
-            return {
-                category: item.getAttribute('data-category'),
-                itemName: item.querySelector('p').textContent,
-                quantity: parseInt(item.querySelector('.item-count').textContent),
-                allergen: item.querySelector('.allergens') ? item.querySelector('.allergens').textContent.split(': ')[1] : ''
-            };
-        });
+        const rows = itemsList.querySelectorAll('tr.item-row');
+        const items = Array.from(rows).map(row => ({
+            location: 'yourStock',
+            category: row.getAttribute('data-category'),
+            itemName: row.querySelector('.item-name').textContent,
+            quantity: parseInt(row.querySelector('.item-count').textContent),
+            unit: row.querySelector('.item-unit').textContent,
+            allergen: row.querySelector('.item-allergen').textContent === '-' ? '' : row.querySelector('.item-allergen').textContent
+        }));
         localStorage.setItem('yourStock', JSON.stringify(items));
     }
 
-    function addItemToDOM({ category, itemName, quantity, allergen }) {
-        const newItem = document.createElement('div');
-        newItem.classList.add('sub-item');
-        newItem.setAttribute('data-category', category);
+    function addItemToDOM({ location, category, itemName, quantity, unit, allergen }, targetTableBody) {
+        const newRow = document.createElement('tr');
+        newRow.classList.add('item-row');
+        newRow.setAttribute('data-category', category);
 
-        const iconSrc = categoryIcons[category];
-        const allergenText = allergen ? `<p class="allergens">Contains: ${allergen}</p>` : '';
+        const allergenText = allergen ? allergen : '-';
+        const iconSrc = categoryIcons[category] || 'defaultIcon.png';
 
-        newItem.innerHTML = `
-            <img src="${iconSrc}" alt="${category} icon" />
-            <p>${itemName}</p>
-            <button class="reduce-button">-</button>
-            <span class="item-count">${quantity}</span>
-            <button class="add-button">+</button>
-            ${allergenText}
+        newRow.innerHTML = `
+            <td><img src="${iconSrc}" alt="${category}"> ${capitalize(category)}</td>
+            <td class="item-name">${itemName}</td>
+            <td class="item-allergen">${allergenText}</td>
+            <td><span class="item-count">${quantity}</span> <span class="item-unit">${unit || ''}</span></td>
+            <td>
+                <button class="reduce-button">-</button>
+                <button class="add-button">+</button>
+            </td>
         `;
 
-        itemsList.appendChild(newItem);
-        const addButton = newItem.querySelector('.add-button');
-        const reduceButton = newItem.querySelector('.reduce-button');
-        const itemCount = newItem.querySelector('.item-count');
+        targetTableBody.appendChild(newRow);
+
+        const addButton = newRow.querySelector('.add-button');
+        const reduceButton = newRow.querySelector('.reduce-button');
+        const itemCountEl = newRow.querySelector('.item-count');
 
         addButton.addEventListener('click', () => {
-            let count = parseInt(itemCount.textContent);
-            itemCount.textContent = ++count;
-            saveItemsToLocalStorage();
+            let count = parseInt(itemCountEl.textContent);
+            itemCountEl.textContent = ++count;
+            if (location === 'yourStock') saveItemsToLocalStorage();
         });
 
         reduceButton.addEventListener('click', () => {
-            let count = parseInt(itemCount.textContent);
+            let count = parseInt(itemCountEl.textContent);
             if (count > 1) {
-                itemCount.textContent = --count;
+                itemCountEl.textContent = --count;
             } else {
-                newItem.remove();
+                newRow.remove();
             }
-            saveItemsToLocalStorage();
+            if (location === 'yourStock') saveItemsToLocalStorage();
         });
-        saveItemsToLocalStorage();
+        if (location === 'yourStock') saveItemsToLocalStorage();
     }
 
     addItemButton.addEventListener('click', () => {
-        const category = document.getElementById('category-select').value;
-        const itemName = document.getElementById('item-input').value.trim();
-        const quantity = parseInt(document.getElementById('quantity-input').value, 10);
-        const allergen = document.getElementById('allergen-select').value;
+        const location = locationSelect.value; 
+        const category = categorySelect.value;
+        const nameVal = itemInput.value.trim();
+        const quantityVal = parseInt(quantityInput.value, 10);
+        const allergenVal = allergenSelect.value;
+        const unitVal = unitInput.value.trim() || '';
 
-        if (itemName && quantity > 0) {
-            if (allergen === 'peanuts') {
-                const proceed = confirm("You or someone you're sharing your space with has a peanut allergy. Would you like to proceed?");
+        if (nameVal && quantityVal > 0) {
+            if (allergenVal === 'peanuts') {
+                const proceed = confirm("You or someone you're sharing space with has a peanut allergy. Add anyway?");
                 if (!proceed) return;
             }
 
-            const itemData = { category, itemName, quantity, allergen };
-            addItemToDOM(itemData);
+            const itemData = { location, category, itemName: nameVal, quantity: quantityVal, unit: unitVal, allergen: allergenVal };
+            if (location === 'yourStock') {
+                addItemToDOM(itemData, itemsList);
+            } else {
+                addItemToDOM(itemData, fridgeList);
+            }
 
-            document.getElementById('item-input').value = '';
-            document.getElementById('quantity-input').value = '1';
-            document.getElementById('allergen-select').value = '';
+            itemInput.value = '';
+            unitInput.value = '';
+            quantityInput.value = '1';
+            allergenSelect.value = '';
         } else {
             alert('Please enter a valid item name and quantity.');
         }
     });
+
+    function filterItems(filter) {
+        const allItems = document.querySelectorAll('.item-row');
+        allItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                item.style.display = 'table-row';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
 
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             const filter = button.getAttribute('data-filter');
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-
-            const allItems = document.querySelectorAll('#items-list .sub-item, #refrigerator-items-list .sub-item');
-            allItems.forEach(item => {
-                if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+            filterItems(filter);
         });
     });
 
+    const toggleButtons = document.querySelectorAll('.toggle-section');
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const table = document.getElementById(targetId);
+            if (table.style.display === 'none') {
+                table.style.display = '';
+                btn.textContent = 'Hide';
+            } else {
+                table.style.display = 'none';
+                btn.textContent = 'Show';
+            }
+        });
+    });
+
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
     loadItemsFromLocalStorage();
+
+    fridgeList.querySelectorAll('.item-row').forEach(row => {
+        const addButton = row.querySelector('.add-button');
+        const reduceButton = row.querySelector('.reduce-button');
+        const itemCountEl = row.querySelector('.item-count');
+
+        addButton.addEventListener('click', () => {
+            let count = parseInt(itemCountEl.textContent);
+            itemCountEl.textContent = ++count;
+        });
+
+        reduceButton.addEventListener('click', () => {
+            let count = parseInt(itemCountEl.textContent);
+            if (count > 1) {
+                itemCountEl.textContent = --count;
+            } else {
+                row.remove();
+            }
+        });
+    });
 });

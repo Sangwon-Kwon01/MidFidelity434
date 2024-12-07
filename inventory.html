@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Kitchen<div id="h1-half">Kompanion</div></h1>
+        <h1>Kitchen<span id="h1-half">Kompanion</span></h1>
 
         <div class="filter-options">
             <button class="filter-button active" data-filter="all">All</button>
@@ -21,6 +21,10 @@
         </div>
 
         <div class="input-section">
+            <select id="location-select">
+                <option value="yourStock">Stock</option>
+                <option value="refrigeratorStock">Shared Inventory</option>
+            </select>
             <select id="category-select">
                 <option value="meats">Meats</option>
                 <option value="vegetables">Vegetables</option>
@@ -28,56 +32,96 @@
                 <option value="fruits">Fruits</option>
                 <option value="frozen">Frozen</option>
             </select>
-            <input type="text" id="item-input" placeholder="Enter item name">
-            <input type="number" id="quantity-input" placeholder="Enter quantity" min="1" value="1">
-        
+            <input type="text" id="item-input" placeholder="Name">
+            <input type="text" id="unit-input" placeholder="Unit">
+            <input type="number" id="quantity-input" placeholder="Count" min="1" value="1">
             <select id="allergen-select">
-                <option value="">Select allergen (optional)</option>
+                <option value="">Allergen (None)</option>
                 <option value="peanuts">Peanuts</option>
                 <option value="gluten">Gluten</option>
                 <option value="lactose">Lactose</option>
                 <option value="fish">Fish</option>
             </select>
         
-            <button id="add-item-button">Add Item</button>
+            <button id="add-item-button">Add</button>
         </div>
 
         <div class="tab-content">
             <div class="inventory-category">
-                <h2>Your Stock</h2>
-                <div class="subsection" id="items-list">
-                </div>
+                <h2>Stock 
+                    <button class="toggle-section" data-target="your-stock-table">Hide</button>
+                </h2>
+                <table class="item-table" id="your-stock-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Item</th>
+                            <th>Allergen</th>
+                            <th>Qty (Unit)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-list"></tbody>
+                </table>
             </div>
         
             <div class="inventory-category">
-                <h2>Refrigerator Stock</h2>
-                <div class="subsection" id="refrigerator-items-list">
-                    <div class="sub-item" data-category="meats">
-                        <img src="meatsIcon.png" alt="Steak">
-                        <p>Steak</p>
-                        <p class="item-count">Qty: 3</p>
-                    </div>
-                    <div class="sub-item" data-category="dairy">
-                        <img src="dairyIcon.png" alt="Milk">
-                        <p>Milk</p>
-                        <p class="item-count">Qty: 2</p>
-                    </div>
-                    <div class="sub-item" data-category="fruits">
-                        <img src="fruitsIcon.png" alt="Apples">
-                        <p>Apples</p>
-                        <p class="item-count">Qty: 5</p>
-                    </div>
-                    <div class="sub-item" data-category="dairy">
-                        <img src="dairyIcon.png" alt="Butter">
-                        <p>Butter</p>
-                        <p class="item-count">Qty: 1</p>
-                    </div>
-                    <div class="sub-item" data-category="dairy">
-                        <img src="dairyIcon.png" alt="Eggs">
-                        <p>Eggs</p>
-                        <p class="item-count">Qty: 12</p>
-                    </div>
-                </div>
+                <h2>Shared Fridge Inventory
+                    <button class="toggle-section" data-target="refrigerator-stock-table">Hide</button>
+                </h2>
+                <table class="item-table" id="refrigerator-stock-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Item</th>
+                            <th>Allergen</th>
+                            <th>Qty (Unit)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="refrigerator-items-list">
+                        <tr class="item-row" data-category="meats">
+                            <td><img src="meatsIcon.png" alt="Meats"> Meats</td>
+                            <td class="item-name">Steak</td>
+                            <td class="item-allergen">-</td>
+                            <td><span class="item-count">3</span> pcs</td>
+                            <td>
+                                <button class="reduce-button">-</button>
+                                <button class="add-button">+</button>
+                            </td>
+                        </tr>
+                        <tr class="item-row" data-category="dairy">
+                            <td><img src="dairyIcon.png" alt="Dairy"> Dairy</td>
+                            <td class="item-name">Milk</td>
+                            <td class="item-allergen">Lactose</td>
+                            <td><span class="item-count">2</span> cartons</td>
+                            <td>
+                                <button class="reduce-button">-</button>
+                                <button class="add-button">+</button>
+                            </td>
+                        </tr>
+                        <tr class="item-row" data-category="fruits">
+                            <td><img src="fruitsIcon.png" alt="Fruits"> Fruits</td>
+                            <td class="item-name">Apples</td>
+                            <td class="item-allergen">-</td>
+                            <td><span class="item-count">5</span> pcs</td>
+                            <td>
+                                <button class="reduce-button">-</button>
+                                <button class="add-button">+</button>
+                            </td>
+                        </tr>
+                        <tr class="item-row" data-category="dairy">
+                            <td><img src="dairyIcon.png" alt="Dairy"> Dairy</td>
+                            <td class="item-name">Eggs</td>
+                            <td class="item-allergen">-</td>
+                            <td><span class="item-count">12</span> pcs</td>
+                            <td>
+                                <button class="reduce-button">-</button>
+                                <button class="add-button">+</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

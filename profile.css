@@ -300,3 +300,10 @@ button {
     border: none;
     z-index: 10000;
 }
+
+#active a {
+    color: white;
+    font-weight: bold;
+    background-color: #3C4C24;
+    border-radius: 5px;
+}
