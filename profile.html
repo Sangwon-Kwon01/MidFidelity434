@@ -19,17 +19,6 @@
                 <h1>Kitchen<div id="h1-half">Kompanion</div></h1>
 
                 <div style="display: flex; align-items: center;">
-                    <div class="green">Favorite Groceries</div>
-                    <div class="add-item">
-                        <img src="scroll_icons/add.png" class="add-item" onclick="openAddModelGroc(favGrocery, allGrocerySet, 'grocery')"/>
-                    </div>
-                </div>
-
-                <div class="scrollmenu-gro">
-                </div>
-                
-
-                <div style="display: flex; align-items: center;">
                     <div class="green">Favorite Recipes</div>
                     <div class="add-item">
                         <img src="scroll_icons/add.png" class="add-item" onclick="openAddModelRec(favMeals, allMealsSet, 'meal')"/>
@@ -78,14 +67,24 @@
                     <div class="modal-content">
                         <span class="close" onclick="closeAddModalRec()">&times;</span>
                         <h2>Add Item</h2>
-                        <strong id="color-main">Name: </strong><input type="text" id="new" placeholder="New Item To Add..."><br><br>
-                        <strong id="color-main">Ingredients: </strong><textarea id="ingredients-list" rows="3" cols="40" placeholder="Seperate items by ',' ex; ing1,ing2,..."></textarea><br><br>
-                        <strong id="color-main">Skill Level: </strong><select></select>
+                        <strong id="color-main">Name: </strong>
+                        <input type="text" id="new" placeholder="New Item To Add..."><br><br>
+                
+                        <strong id="color-main">Ingredients: </strong>
+                        <div id="ingredients-container">
+                            <input type="text" id="ingredient-input" placeholder="Enter an ingredient">
+                            <button id="add-ingredient-button">Add Ingredient</button>
+                        </div>
+                        <ul id="ingredients-list"></ul><br><br>
+                
+                        <strong id="color-main">Skill Level: </strong>
+                        <select></select>
                         <button id="addToFavButton3">Add to Favorites</button>
                         <hr>
                         <div class="meal-pics"></div>
                     </div>
                 </div>
+
 
                 <div id="addModalAllergy" class="modal">
                     <div class="modal-overlay"></div>
@@ -93,7 +92,7 @@
                         <span class="close" onclick="closeAddModalAllergy()">&times;</span>
                         <h2>Add Item</h2>
                         <select></select>
-                        <button id="addToFavButton2">Add to Favorites</button>
+                        <button id="addToFavButton2">Add Allergy</button>
                         <hr>
                         <div class="meal-pics"></div>
                     </div>

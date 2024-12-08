@@ -105,6 +105,20 @@
         </div>
     </div>
     <script>
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        function Meal(name, icon, ingredients) {
+            this.name = name;
+            this.icon = icon;
+            this.ingredients = ingredients
+        }
+
+        const chefIcons = {
+            beginner: 'begChef.png',
+            intermediate: 'intChef.png',
+            advanced: 'advChef.png'
+        };
+        
         const inventory = [];
     
         const recipes = [
@@ -206,18 +220,23 @@
                 const card = document.createElement('div');
                 card.className = 'recipe-card';
     
+                const isFavorited = favorites.some(fav => fav.name === recipe.name);
+
                 card.innerHTML = `
-                    <div>
-                        <h3>${recipe.name}</h3>
-                        <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
-                        <p>Skill Level: ${recipe.skill}</p>
-                    </div>
-                    <button onclick="toggleInstructions(this)">View Preparation Steps</button>
-                    <div class="instructions" style="display: none;">
-                        <p>${recipe.instructions.replace(/\n/g, '<br>')}</p>
-                    </div>
-                `;
-    
+                <div>
+                    <h3>${recipe.name}</h3>
+                    <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
+                    <p>Skill Level: ${recipe.skill}</p>
+                </div>
+                <button onclick="toggleInstructions(this)">View Preparation Steps</button>
+                <div class="instructions" style="display: none;">
+                    <p>${recipe.instructions.replace(/\n/g, '<br>')}</p>
+                </div>
+                <button onclick="favoriteRecipe('${recipe.name}')">
+                    ${isFavorited ? 'Unfavorite' : 'Favorite'}
+                </button>
+            `;
+
                 recipeList.appendChild(card);
             });
         }
@@ -282,6 +301,21 @@
             
             displayRecipes(document.getElementById('searchBar').value);
             updateActiveFilters();
+        }
+
+        function favoriteRecipe(recipeName) {
+                const recipe = recipes.find(r => r.name === recipeName);
+                const index = favorites.findIndex(fav => fav.name === recipeName);
+
+                if (index > -1) {
+                    favorites.splice(index, 1);
+                } else {
+                    item = new Meal (recipe.name, chefIcons[recipe.skill], recipe.ingredients)
+                    favorites.push(item);
+                }
+
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                displayRecipes();
         }
     
         

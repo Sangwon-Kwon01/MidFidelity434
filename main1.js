@@ -69,11 +69,12 @@ function renderGroceries(favGrocery) {
     });
 }
 
-function renderRecipes(favMeals) {
+function renderRecipes() {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     const scrollMenu = document.querySelector('.scrollmenu-fav');
     scrollMenu.innerHTML = '';
 
-    favMeals.forEach(meal => {
+    favorites.forEach(meal => {
         const mealDiv = document.createElement('div');
         mealDiv.classList.add('scroll-item');
         
@@ -81,7 +82,7 @@ function renderRecipes(favMeals) {
             <img src="${meal.icon}" class="scroll-recipes" onclick="showMealDetails(${meal})"/>
             <span>${meal.name}</span>
             <span>
-                <img src="remove.png" id="remove" onclick="openRemModelRec(favMeals, '${meal.name}', 'meal')"/>
+                <img src="remove.png" id="remove" onclick="removeFavorite('${meal.name}')"/>
             </span>
         `;
         
@@ -126,6 +127,7 @@ function showMealDetails(meal) {
 
     modal.style.display = 'block';
 }
+
 
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
@@ -243,16 +245,51 @@ function openAddModelRec(foodArr, foodSet, type) {
     const select = addModal.querySelector('select');
     const newItemInput = addModal.querySelector('#new');
     const addToFavButton = document.getElementById('addToFavButton3');
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const ingredientInput = document.getElementById('ingredient-input');
+    const addIngredientButton = document.getElementById('add-ingredient-button');
+    const ingredientsList = document.getElementById('ingredients-list');
     
     let activeInput = null;
+    let ingredientsArray = [];
 
     mealPicsContainer.innerHTML = ''; 
     select.innerHTML = '';
+    ingredientsList.innerHTML = '';
+    ingredientsArray = [];
 
     newItemInput.addEventListener('focus', () => {
         activeInput = newItemInput;
         toggleKeyboard(true);
     });
+
+    addIngredientButton.onclick = () => {
+        const ingredient = ingredientInput.value.trim();
+        if (ingredient) {
+            ingredientsArray.push(ingredient);
+            updateIngredientsList();
+            ingredientInput.value = '';
+        }
+    };
+
+    function removeIngredient(index) {
+        ingredientsArray.splice(index, 1);
+        updateIngredientsList();
+    }
+
+    function updateIngredientsList() {
+        ingredientsList.innerHTML = '';
+        ingredientsArray.forEach((ingredient, index) => {
+            const li = document.createElement('li');
+            li.textContent = ingredient;
+            const removeButton = document.createElement('button');
+            removeButton.textContent = "Remove";
+            removeButton.id = 'add-ingredient-button';
+            removeButton.onclick = () => removeIngredient(index);
+            li.appendChild(removeButton);
+            ingredientsList.appendChild(li);
+        });
+    }
 
     ingredientsTextArea.addEventListener('focus', () => {
         activeInput = ingredientsTextArea;
@@ -286,7 +323,7 @@ function openAddModelRec(foodArr, foodSet, type) {
         select.appendChild(option);
     });
 
-    foodArr.forEach(meal => {
+    favorites.forEach(meal => {
         mealPicsContainer.innerHTML += `
             <div class="meal-item">
                 <img src="${meal.icon}" class="scroll-recipes"/>
@@ -299,7 +336,6 @@ function openAddModelRec(foodArr, foodSet, type) {
         const newItem = newItemInput.value.trim(); 
         const selectedCategory = select.value;
         const ingredientsText = ingredientsTextArea.value;
-        const ingredientsArray = ingredientsText.split(',').map(item => item.trim());
         ingredientsTextArea.value = '';
         newItemInput.value = '';
         
@@ -332,18 +368,20 @@ function closeAddModalAllergy() {
 
 function addMealToFav(newItem, selectedCategory, foodArr, ingredientsArray, foodSet) {
     const select = document.querySelector('#addModal select');
+    console.log(selectedCategory)
     const itemIcon = chefIcons[selectedCategory];
     const item = new Meal(newItem, itemIcon, ingredientsArray);
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
     //const selectedMeal = Array.from(foodSet).find(meal => meal.name === selectedMealName);
 
     if (item && !foodArr.some(meal => meal.name === newItem)) {
-        foodArr.push(item);
+        favorites.push(item);
 
-        localStorage.setItem('favMeals', JSON.stringify(foodArr));
+        localStorage.setItem('favorites', JSON.stringify(favorites));
 
         openAddModelRec(foodArr, foodSet, 'meal');
-        renderRecipes(foodArr)
+        renderRecipes()
     }
 }
 
@@ -398,8 +436,8 @@ function handleKeyClick(key, inputId = "searchBar") {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderRecipes(favMeals)
-    renderGroceries(favGrocery)
+    renderRecipes()
+    //renderGroceries(favGrocery)
     renderAllergies(favAllergies)
 });
 
@@ -425,8 +463,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    renderRecipes(favMeals);
-    renderGroceries(favGrocery);
+    renderRecipes();
+    //renderGroceries(favGrocery);
     renderAllergies(favAllergies);
 });
 
@@ -437,7 +475,7 @@ function openRemModelRec(foodArr, name, type) {
         foodArr.splice(index, 1);
 
         if (type === 'allergy') {
-            localStorage.setItem('favAllergies', JSON.stringify(foodArr)); // Update localStorage for allergies
+            localStorage.setItem('favAllergies', JSON.stringify(foodArr));
             renderAllergies(foodArr);
         } else if (type === 'meal') {
             localStorage.setItem('favMeals', JSON.stringify(foodArr));
@@ -447,4 +485,11 @@ function openRemModelRec(foodArr, name, type) {
             renderGroceries(foodArr);
         }
     }
+}
+
+function removeFavorite(recipeName) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites = favorites.filter(fav => fav.name !== recipeName);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    renderRecipes();
 }

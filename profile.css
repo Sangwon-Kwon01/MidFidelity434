@@ -228,6 +228,17 @@ button {
     margin-top: 10px;
 }
 
+#add-ingredient-button {
+    background-color: #3C4C24;
+    color: white;
+    border: 1px solid black;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
 #active {
     background-color: #3C4C24;
     font-weight: bold;
